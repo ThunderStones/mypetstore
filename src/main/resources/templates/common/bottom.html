@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
+
 </head>
 <body>
-$END$
+<footer th:fragment="footer">
+        <div id="Footer">
+
+            <div id="PoweredBy">&nbsp<a href="https://www.csu.edu.cn">www.csu.edu.cn</a>
+            </div>
+
+            <div id="Banner">
+                <div th:utext="${session.account?.bannerName}"></div>
+
+            </div>
+
+        </div>
+    
+</footer>
 </body>
 </html>

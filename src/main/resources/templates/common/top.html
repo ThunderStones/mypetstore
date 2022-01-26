@@ -1,10 +1,57 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
+
 </head>
 <body>
-$END$
+<header th:fragment="header">
+    <div id="Header" style="height: 9ex">
+
+        <div id="Logo">
+            <div id="LogoContent">
+                <a href="/catalog/viewMain"><img src="../images/logo-topbar.gif" alt="logo-topbar"/></a>
+            </div>
+        </div>
+
+        <div id="Menu">
+            <div id="MenuContent">
+                <a href="addItemToCart"><img align="middle" name="img_cart" src="../images/cart.gif"/></a>
+                <img align="middle" src="../images/separator.gif"/>
+                <span th:if="${session.isAuthenticated}">
+                    <a href="/account/signOut">Sign Out</a>
+                    <img align="middle" src="../images/separator.gif"/>
+                    <a href="/account/editAccountForm" th:text="${session.account.username}"></a>
+                </span>
+                <a th:if="${session.isAuthenticated} != true" href="/account/signonForm">Sign In</a>
+                <img align="middle" src="../images/separator.gif"/> <a href="/help.html">?</a>
+            </div>
+        </div>
+
+        <div id="Search">
+            <div id="SearchContent">
+                <form action="search" method="get">
+                    <input type="text" name="keyword" size="14" id="searchText" autocomplete="nope"/>
+                    <input type="submit" name="searchProducts" value="Search"/>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="QuickLinks">
+        <nav>
+            <a href="viewCategory?categoryId=FISH">Fish</a>
+            <a href="viewCategory?categoryId=DOGS">Dogs</a>
+            <a href="viewCategory?categoryId=REPTILES">Reptiles</a>
+            <a href="viewCategory?categoryId=CATS">Cats</a>
+            <a href="viewCategory?categoryId=BIRDS">Birds</a>
+            <div class="animation"></div>
+        </nav>
+    </div>
+</header>
 </body>
 </html>

@@ -1,10 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
 </head>
 <body>
-$END$
+<div th:replace="/common/top"></div>
+<div id="Content">
+    <div id="Catalog">
+        <form action="/account/editAccount" method="post">
+
+            <h3>User Information</h3>
+
+            <table>
+                <tr>
+                    <td>User ID:</td>
+                    <td th:text="${session.account.username}">${sessionScope.account.username}</td>
+                </tr>
+                <tr>
+                    <td>New password:</td>
+                    <td><input type="text" name="password"/></td>
+                </tr>
+                <tr>
+                    <td>Repeat password:</td>
+                    <td><input type="text" name="repeatedPassword"/></td>
+                </tr>
+            </table>
+            <div th:replace="~{account/includeAccounrFields::includeAccountFields}"></div>
+
+            <input type="submit" name="editAccount" value="Save Account Information"/>
+        </form>
+        <a href="listOrder">My Orders</a>
+    </div>
+</div>
+<div th:replace="/common/bottom"></div>
 </body>
 </html>

@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
 </head>
 <body>
-$END$
+<div th:replace="/common/top"></div>
+<div id="Content">
+
+    <div id="Catalog"><form action="/account/register" method="post">
+
+        <h3>User Information</h3>
+
+        <table>
+            <tr>
+                <td>User ID:</td>
+                <td><input type="text" name="username" id="registerUsername" th:value="${session.account.username}" required/></td>
+                <td><span id="usernameTips"></span></td>
+            </tr>
+            <tr>
+                <td>New password:</td>
+                <td><input type="text" name="password" th:value="${session.account.password}" required/></td>
+            </tr>
+            <tr>
+                <td>Repeat password:</td>
+                <td><input type="text" name="repeatedPassword" ${requestScope.repeatedPassword} required/></td>
+            </tr>
+        </table>
+
+        <div th:insert="~{/account/includeAccounrFields::includeAccountFields}"></div>
+        <table>
+            <tr>
+                <td>CaptchaCode:</td>
+                <td><input type="text" name="captchaCode"></td>
+                <td><img src="image.jpg" alt="CaptchaCode"></td>
+            </tr>
+        </table>
+        <label class="ErrorMsg">${requestScope.msg}</label><br>
+        <input type="submit" name="newAccount" value="Register" />
+
+    </form></div>
+</div>
+<div th:replace="/common/bottom"></div>
 </body>
 </html>

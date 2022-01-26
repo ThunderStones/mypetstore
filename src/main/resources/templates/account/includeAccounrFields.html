@@ -1,10 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
 </head>
 <body>
-$END$
+<div th:replace="/common/top"></div>
+<div id="Content">
+    <div th:fragment="includeAccountFields">
+        <h3>Account Information</h3>
+        <table>
+            <tr>
+                <td>First name:</td>
+                <td><input type="text" name="firstName"
+                           th:value="${#objects.nullSafe(session.account.firstName, '')}"/></td>
+            </tr>
+            <tr>
+                <td>Last name:</td>
+                <td><input type="text" name="lastName"
+                           th:value="${#objects.nullSafe(session.account.lastName, '')}"/></td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td><input type="text" size="40" name="email"
+                           th:value="${#objects.nullSafe(session.account.email, '')}"/></td>
+            </tr>
+            <tr>
+                <td>Phone:</td>
+                <td><input type="text" name="phone" th:value="${#objects.nullSafe(session.account.phone, '')}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>Address 1:</td>
+                <td><input type="text" size="40" name="address1"
+                           th:value="${#objects.nullSafe(session.account.address1, '')}"/></td>
+            </tr>
+            <tr>
+                <td>Address 2:</td>
+                <td><input type="text" size="40" name="address2"
+                           th:value="${#objects.nullSafe(session.account.address1, '')}"/></td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td><input type="text" name="city" th:value="${#objects.nullSafe(session.account.city, '')}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td><input type="text" size="4" name="state"
+                           th:value="${#objects.nullSafe(session.account.state, '')}"/></td>
+            </tr>
+            <tr>
+                <td>Zip:</td>
+                <td><input type="text" size="10" name="zip"
+                           th:value="${#objects.nullSafe(session.account.zip, '')}"/></td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td><input type="text" size="15" name="country"
+                           th:value="${#objects.nullSafe(session.account.country, '')}"/></td>
+            </tr>
+        </table>
+
+        <h3>Profile Information</h3>
+
+        <table>
+            <tr>
+                <td>Language Preference:</td>
+                <td><select name="languagePreference">
+                    <option th:each="language:${application.languageList}" th:value="${language}" th:text="${language}">
+                        language
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Favourite Category:</td>
+                <td><select name="favouriteCategoryId">
+                    <option th:each="categoryId:${application.categoryList}" th:value="${categoryId}"
+                            th:text="${categoryId}">categoryId
+                    </option>
+                </select></td>
+            </tr>
+            <tr>
+                <td>Enable MyList</td>
+                <td><label>
+                    <input type="checkbox" name="listOption" th:checked="${session.account.listOption}">
+                </label></td>
+            </tr>
+            <tr>
+                <td>Enable MyBanner</td>
+                <td><label>
+                    <input type="checkbox" name="bannerOption" th:checked="${session.account.bannerOption}">
+                </label></td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+<div th:replace="/common/bottom"></div>
 </body>
 </html>

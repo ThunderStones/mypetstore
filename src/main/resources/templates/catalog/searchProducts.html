@@ -1,10 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
+
 </head>
 <body>
-$END$
+<div th:replace="/common/top"></div>
+<div id="Content">
+    <div id="BackLink"><a href="/catalog/viewMain">
+        Return to Main Menu
+    </a></div>
+
+    <div id="Catalog">
+
+        <table class="searchResult">
+            <tr class="head">
+                <th>Description</th>
+                <th>Product ID</th>
+                <th>Name</th>
+            </tr>
+            <tr th:each="product:${resultList}">
+                <td><a href="#" th:utext="${product.description}">description</a></td>
+                <td><a href="#" th:text="${product.productId}">productId</a></td>
+                <td th:text="${product.name}">name</td>
+            </tr>
+
+
+<!--            <c:forEach var="product" items="${sessionScope.productList}">-->
+<!--                <tr>-->
+<!--                    <td><a href="viewProduct?productId=${product.productId}">-->
+<!--                        ${product.description}-->
+<!--                    </a></td>-->
+<!--                    <td><b> <a href="viewProduct?productId=${product.productId}">-->
+<!--                        <font color="BLACK"> ${product.productId} </font>-->
+<!--                    </a> </b></td>-->
+<!--                    <td>${product.name}</td>-->
+<!--                </tr>-->
+<!--            </c:forEach>-->
+
+
+        </table>
+
+    </div>
+</div>
+<div th:replace="/common/bottom"></div>
 </body>
 </html>

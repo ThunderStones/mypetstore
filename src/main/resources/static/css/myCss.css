@@ -1,0 +1,202 @@
+/*area div.preview {*/
+/*    visibility: hidden;*/
+/*    opacity: 0;*/
+/*    transition: opacity 1s;*/
+/*}*/
+
+/*area:hover div.preview{*/
+/*    visibility: visible;*/
+/*    opacity: 100%;*/
+/*    transition: opacity 1s;*/
+
+/*}*/
+
+div.preview {
+    position: fixed;
+    background-color: #fff;
+}
+
+div.preview ul{
+    border-radius: 5px;
+    border: 1px solid #F1F2F3;
+    background-color: #F6F7F8;
+    padding: 0;
+    margin: 0;
+}
+
+div.preview ul li{
+    list-style-type: none;
+    height: 50px;
+    text-align: left;
+}
+
+div.preview ul li a{
+    text-decoration: none;
+
+}
+
+div.preview img {
+    height: 100%;
+    vertical-align: middle;
+}
+
+div.preview ul li:nth-child(2n + 1) {
+    background-color: rgb(246, 247, 248);
+}
+
+div.preview ul li:nth-child(2n) {
+    background-color: white;
+}
+
+table {
+    font-family: Arial, sans-serif;
+    border-collapse: collapse;
+}
+
+table td, table th {
+    border: 1px solid #ddd;
+    height: inherit;
+    padding: 8px;
+    vertical-align: middle;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+table tr:hover {
+    background-color: #ddd;
+}
+table th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4caf50;
+    color: white;
+}
+
+
+.searchResult tr:not(.head) {
+    height: 80px;
+}
+
+.searchResult tr img {
+    height: 100%;
+    vertical-align: middle;
+}
+
+fieldset {
+    margin-inside: 0;
+    padding-inline: 0;
+    border: 0;
+}
+
+fieldset table {
+    width: 543px;
+}
+
+.ui-autocomplete-category {
+    border-bottom: 2px solid #4caf50;
+}
+
+div.ui-menu-item-wrapper {
+    margin-left: 10px;
+    font-size: 18px;
+}
+
+#BackLink {
+    border-width: 0;
+    background-color: #79be89;
+    border-radius: 10px 0 0 10px;
+}
+
+#BackLink:hover {
+    background-color: #4caf50;
+}
+
+#BackLink a {
+    color: #003399;
+}
+
+#BackLink a:hover{
+    color: #003399;
+
+}
+
+#catalog h2{
+    clear: both;
+}
+
+div.login  *{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+div.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    padding: 40px;
+    margin: auto;
+    background-color: white;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.1);
+}
+
+div.login h2 {
+    margin-bottom: 30px;
+}
+
+div.login div.loginBox {
+    position: relative;
+    width: 100%;
+}
+
+div.login div.loginBox input{
+    outline: none;
+    border: none;
+    width: 100%;
+    padding: 10px 0;
+    margin-bottom: 30px;
+    color: black;
+    font-size: 16px;
+    border-bottom: 1px solid black;
+}
+
+div.login div.loginBox label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    pointer-events: none;
+    transition: all 0.5s;
+    color: grey;;
+}
+
+div.login div.loginBox input:focus + label ,
+div.login div.loginBox input:valid + label {
+    top: -20px;
+    color: #005e21;
+    font-size: 12px;
+
+}
+
+div.login input.loginButton {
+    position: relative;
+    padding: 10px 20px;
+    color: #005e21;
+    border: 0;
+    background-color: white;
+    transition: all 0.5s;
+}
+
+div.login input.loginButton:hover {
+    color: white;
+    border-radius: 5px;
+    background-color: #079437;
+    box-shadow: 0 0 5px #079437, 0 0 25px #079437, 0 0 50px #079437, 0 0 100px #079437;
+}
+
+input[name='captchaCode'] {
+    width: 78% !important;
+}

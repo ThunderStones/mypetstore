@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="../css/myCss.css" type="text/css" media="screen"/>
 </head>
 <body>
-$END$
+<div th:replace="/common/top"></div>
+<div id="Content">
+
+    <div id="BackLink">
+        <a href="viewProduct?productId=${sessionScope.product.productId}">Return to ${sessionScope.product.name}</a>
+    </div>
+
+    <div id="Catalog">
+
+        <table>
+            <tr>
+                <td th:utext="${product.description}">product.description</td>
+            </tr>
+            <tr>
+                <td><b th:text="${item.itemId}"> ${sessionScope.item.itemId} </b></td>
+            </tr>
+            <tr>
+                <td><b><font size="4"
+                             th:text="${#objects.nullSafe(item.attribute1, '')+' '+#objects.nullSafe(item.attribute2, '')+' '+#objects.nullSafe(item.attribute3, '')+' '+#objects.nullSafe(item.attribute4, '')+' '+#objects.nullSafe(item.attribute5, '')+' '+#objects.nullSafe(product.name, '')}">
+                    attribute product.name </font></b></td>
+            </tr>
+            <tr>
+                <td th:text="${product.name}">product.name</td>
+            </tr>
+            <tr>
+                <td th:if="${item.quantity} gt 0"><label th:text="${item.quantity}"></label> in stock.</td>
+                <td th:if="not (${item.quantity} gt 0)">Back ordered.</td>
+            </tr>
+            <tr>
+                <td th:text="${'$' + #numbers.formatDecimal(item.listPrice, 1, 'COMMA', 2, 'POINT')}">
+                </td>
+            </tr>
+
+            <tr>
+                <td><a class="Button" th:href="@{workingItemId=${item.itemId}}">
+                    Add to Cart
+                </a></td>
+            </tr>
+        </table>
+
+    </div>
+</div>
+<div th:replace="/common/bottom"></div>
 </body>
 </html>
