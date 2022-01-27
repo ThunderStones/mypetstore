@@ -40,13 +40,14 @@ public class AccountController {
 
     @PostMapping("/signon")
     public String signon(Account account, Model model) {
+        System.out.println(this.account.getUsername());
         account = accountService.getAccount(account.getUsername(), account.getPassword());
         if (account == null) {
             model.addAttribute("msg", "Invalid username or password.  Signon failed.");
             clear();
             model.addAttribute("account", null);
             model.addAttribute("myList", null);
-            model.addAttribute("isAuthenticated", isAuthenticated);
+            model.addAttribute("isAuthenticated", false);
             return SIGNON_FORM;
         } else {
             account.setPassword(null);
@@ -54,7 +55,7 @@ public class AccountController {
             isAuthenticated = true;
             model.addAttribute("account", account);
             model.addAttribute("myList", myList);
-            model.addAttribute("isAuthenticated", isAuthenticated);
+            model.addAttribute("isAuthenticated", true);
             return MAIN;
         }
     }

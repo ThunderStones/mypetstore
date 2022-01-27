@@ -66,7 +66,7 @@ public class catalogController {
         return MAIN;
     }
 
-    @GetMapping("viewItem")
+    @GetMapping("/viewItem")
     public String viewItem(String itemId, Model model) {
         if (itemId != null) {
             Item item = catalogService.getItem(itemId);

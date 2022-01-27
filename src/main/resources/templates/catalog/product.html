@@ -35,7 +35,7 @@
                     attribute
                 </td>
                 <td th:text="'$'+${#numbers.formatDecimal(item.listPrice, 1, 'COMMA', 2, 'POINT')}">listPrice</td>
-                <td><a class="Button" href="#">Add to Cart</a></td>
+                <td><a class="Button" th:href="@{/cart/addItemToCart(workingItemId=${item.itemId})}">Add to Cart</a></td>
 
             </tr>
 

@@ -36,7 +36,7 @@ public class CatalogService {
     public List<Product> searchProductList(String keywords) {
         List<Product> productList = new ArrayList<>();
         for (String keyword : keywords.split("\\s+")) {
-            productList.addAll(productMapper.searchProductList(keyword));
+            productList.addAll(productMapper.searchProductList("%" + keyword + "%"));
         }
         return productList;
     }
