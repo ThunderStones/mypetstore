@@ -17,102 +17,102 @@
 
         <table>
             <tr>
-                <th align="center" colspan="2">Order #${sessionScope.order.orderId}
-                    <fmt:formatDate value="${sessionScope.order.orderDate}"
-                                    pattern="yyyy/MM/dd hh:mm:ss" /></th>
+                <th align="center" colspan="2">Order <span th:text="'#'+${session.order.orderId}">#${session.order.orderId}</span>>
+                    <span th:text="${#dates.format(session.order.orderDate)}"></span></th>
             </tr>
             <tr>
                 <th colspan="2">Payment Details</th>
             </tr>
             <tr>
                 <td>Card Type:</td>
-                <td><c:out value="${sessionScope.order.cardType}" /></td>
+                <td th:text="${session.order.cardType}"></td>
             </tr>
             <tr>
                 <td>Card Number:</td>
-                <td><c:out value="${sessionScope.order.creditCard}" /> * Fake
-                    number!</td>
+                <td th:text="${session.order.creditCard}"> * Fake
+                    number!
+                </td>
             </tr>
             <tr>
                 <td>Expiry Date (MM/YYYY):</td>
-                <td><c:out value="${sessionScope.order.expiryDate}" /></td>
+                <td th:text="${session.order.expiryDate}"></td>
             </tr>
             <tr>
                 <th colspan="2">Billing Address</th>
             </tr>
             <tr>
                 <td>First name:</td>
-                <td><c:out value="${sessionScope.order.billToFirstName}" /></td>
+                <td th:text="${session.order.billToFirstName}"></td>
             </tr>
             <tr>
                 <td>Last name:</td>
-                <td><c:out value="${sessionScope.order.billToLastName}" /></td>
+                <td th:text="${session.order.billToLastName}"></td>
             </tr>
             <tr>
                 <td>Address 1:</td>
-                <td><c:out value="${sessionScope.order.billAddress1}" /></td>
+                <td th:text="${session.order.billAddress1}"></td>
             </tr>
             <tr>
                 <td>Address 2:</td>
-                <td><c:out value="${sessionScope.order.billAddress2}" /></td>
+                <td th:text="${session.order.billAddress2}"></td>
             </tr>
             <tr>
                 <td>City:</td>
-                <td><c:out value="${sessionScope.order.billCity}" /></td>
+                <td th:text="${session.order.billCity}"></td>
             </tr>
             <tr>
                 <td>State:</td>
-                <td><c:out value="${sessionScope.order.billState}" /></td>
+                <td th:text="${session.order.billState}"></td>
             </tr>
             <tr>
                 <td>Zip:</td>
-                <td><c:out value="${sessionScope.order.billZip}" /></td>
+                <td th:text="${session.order.billZip}"></td>
             </tr>
             <tr>
                 <td>Country:</td>
-                <td><c:out value="${sessionScope.order.billCountry}" /></td>
+                <td th:text="${session.order.billCountry}"></td>
             </tr>
             <tr>
                 <th colspan="2">Shipping Address</th>
             </tr>
             <tr>
                 <td>First name:</td>
-                <td><c:out value="${sessionScope.order.shipToFirstName}" /></td>
+                <td th:text="${session.order.shipToFirstName}"></td>
             </tr>
             <tr>
                 <td>Last name:</td>
-                <td><c:out value="${sessionScope.order.shipToLastName}" /></td>
+                <td th:text="${session.order.shipToLastName}"></td>
             </tr>
             <tr>
                 <td>Address 1:</td>
-                <td><c:out value="${sessionScope.order.shipAddress1}" /></td>
+                <td th:text="${session.order.shipAddress1}"></td>
             </tr>
             <tr>
                 <td>Address 2:</td>
-                <td><c:out value="${sessionScope.order.shipAddress2}" /></td>
+                <td th:text="${session.order.shipAddress2}"></td>
             </tr>
             <tr>
                 <td>City:</td>
-                <td><c:out value="${sessionScope.order.shipCity}" /></td>
+                <td th:text="${session.order.shipCity}"></td>
             </tr>
             <tr>
                 <td>State:</td>
-                <td><c:out value="${sessionScope.order.shipState}" /></td>
+                <td th:text="${session.order.shipState}"></td>
             </tr>
             <tr>
                 <td>Zip:</td>
-                <td><c:out value="${sessionScope.order.shipZip}" /></td>
+                <td th:text="${session.order.shipZip}"></td>
             </tr>
             <tr>
                 <td>Country:</td>
-                <td><c:out value="${sessionScope.order.shipCountry}" /></td>
+                <td th:text="${session.order.shipCountry}"></td>
             </tr>
             <tr>
                 <td>Courier:</td>
-                <td><c:out value="${sessionScope.order.courier}" /></td>
+                <td th:text="${session.order.courier}"></td>
             </tr>
             <tr>
-                <td colspan="2">Status: <c:out value="${sessionScope.order.status}" /></td>
+                <td colspan="2">Status: <span th:text="${session.order.status}"></span></td>
             </tr>
             <tr>
                 <td colspan="2">
@@ -124,32 +124,31 @@
                             <th>Price</th>
                             <th>Total Cost</th>
                         </tr>
-                        <c:forEach var="lineItem" items="${sessionScope.order.lineItems}">
-                            <tr>
-                                <td><a href="viewItem?itemId=${lineItem.item.itemId}">
-                                    ${lineItem.item.itemId}
-                                </a></td>
-                                <td><c:if test="${lineItem.item != null}">
-                                    ${lineItem.item.attribute1}
-                                    ${lineItem.item.attribute2}
-                                    ${lineItem.item.attribute3}
-                                    ${lineItem.item.attribute4}
-                                    ${lineItem.item.attribute5}
-                                    ${lineItem.item.product.name}
-                                </c:if> <c:if test="${lineItem.item == null}">
-                                    <i>{description unavailable}</i>
-                                </c:if></td>
+                        <tr th:each="lineItem:${session.order.lineItems}">
+                            <td>
+                                <a th:href="@{/catalog/viewItem(itemId=${lineItem.item.itemId})}"
+                                   th:text="${lineItem.item.itemId}"></a>
+                            </td>
+                            <td>
+                                <span th:if="${lineItem.item != null}"
+                                      th:text="${#objects.nullSafe(lineItem.item.attribute1, ' ')}+
+                                                ${#objects.nullSafe(lineItem.item.attribute2, ' ')}+
+                                                ${#objects.nullSafe(lineItem.item.attribute3, ' ')}+
+                                                ${#objects.nullSafe(lineItem.item.attribute4, ' ')}+
+                                                ${#objects.nullSafe(lineItem.item.attribute5, ' ')}+
+                                                ${#objects.nullSafe(lineItem.item.product.name, ' ')}">
 
-                                <td>${lineItem.quantity}</td>
-                                <td><fmt:formatNumber value="${lineItem.unitPrice}"
-                                                      pattern="$#,##0.00" /></td>
-                                <td><fmt:formatNumber value="${lineItem.total}"
-                                                      pattern="$#,##0.00" /></td>
-                            </tr>
-                        </c:forEach>
+                                </span>
+                                <span th:if="${lineItem.item == null}" th:text="description unavailable"></span>
+                            </td>
+                            <td th:text="${lineItem.quantity}"></td>
+                            <td th:text="'$' + ${#numbers.formatDecimal(lineItem.unitPrice, 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="'$' + ${#numbers.formatDecimal(lineItem.total, 1, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
                         <tr>
-                            <th colspan="5">Total: <fmt:formatNumber
-                                    value="${sessionScope.order.totalPrice}" pattern="$#,##0.00" /></th>
+                            <th colspan="5">Total:
+                                <span th:text="'$' + ${#numbers.formatDecimal(session.order.totalPrice, 1, 'COMMA', 2, 'POINT')}"></span>
+                            </th>
                         </tr>
                     </table>
                 </td>

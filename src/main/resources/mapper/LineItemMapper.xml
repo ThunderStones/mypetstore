@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="org.csu.mypetstore.persistence.LineItemMapper">
-    <select id="getLineItemsByOrderId" parameterType="string" resultType="LineItem">
+    <select id="getLineItemsByOrderId" parameterType="int" resultType="LineItem">
         SELECT ORDERID,
                LINENUM AS lineNumber,
                ITEMID,

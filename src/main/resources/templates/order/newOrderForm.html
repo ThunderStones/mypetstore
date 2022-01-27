@@ -11,7 +11,7 @@
 <div id="Content">
 
     <div id="Catalog">
-        <form action="newOrder" method="post">
+        <form action="/order/newOrder" method="post">
 
             <table>
                 <input type="hidden" name="inputOrderInfo" value="true">
@@ -20,20 +20,23 @@
                 </tr>
                 <tr>
                     <td>Card Type:</td>
-                    <td><select name="order.cardType">
-                        <c:forEach var="typeName" items="${sessionScope.creditCardTypes}">
-                            <option value="${typeName}">${typeName}</option>
-                        </c:forEach>
-                    </select></td>
+                    <td>
+                        <select name="order.cardType">
+                            <option th:each="typeName : ${application.cardTypeList}" value="${typeName}"
+                                    th:text="${typeName}"></option>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <td>Card Number:</td>
-                    <td><input type="text" name="order.creditCard" value="${sessionScope.order.creditCard}"/> * Use a fake
-                        number!</td>
+                    <td><input type="text" name="order.creditCard" th:value="${session.order.creditCard}"/> * Use a
+                        fake
+                        number!
+                    </td>
                 </tr>
                 <tr>
                     <td>Expiry Date (MM/YYYY):</td>
-                    <td><input type="text" name="order.expiryDate" value="${sessionScope.order.expiryDate}"/></td>
+                    <td><input type="text" name="order.expiryDate" th:value="${session.order.expiryDate}"/></td>
                 </tr>
                 <tr>
                     <th colspan=2>Billing Address</th>
@@ -41,87 +44,53 @@
 
                 <tr>
                     <td>First name:</td>
-                    <td><input type="text" name="order.billToFirstName" value="${sessionScope.order.billToFirstName}"/></td>
+                    <td><input type="text" name="order.billToFirstName" th:value="${session.order.billToFirstName}"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Last name:</td>
-                    <td><input type="text" name="order.billToLastName" value="${sessionScope.order.billToLastName}"/></td>
+                    <td><input type="text" name="order.billToLastName" th:value="${session.order.billToLastName}"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Address 1:</td>
-                    <td><input type="text" size="40" name="order.billAddress1" value="${sessionScope.order.billAddress1}"/></td>
+                    <td><input type="text" size="40" name="order.billAddress1"
+                               th:value="${session.order.billAddress1}"/></td>
                 </tr>
                 <tr>
                     <td>Address 2:</td>
-                    <td><input type="text" size="40" name="order.billAddress2" value="${sessionScope.order.billAddress2}"/></td>
+                    <td><input type="text" size="40" name="order.billAddress2"
+                               th:value="${session.order.billAddress2}"/></td>
                 </tr>
                 <tr>
                     <td>City:</td>
-                    <td><input type="text" name="order.billCity" value="${sessionScope.order.billCity}"/></td>
+                    <td><input type="text" name="order.billCity" th:value="${session.order.billCity}"/></td>
                 </tr>
                 <tr>
                     <td>State:</td>
-                    <td><input type="text" size="4" name="order.billState" value="${sessionScope.order.billState}"/></td>
+                    <td><input type="text" size="4" name="order.billState" th:value="${session.order.billState}"/>
+                    </td>
                 </tr>
                 <tr>
                     <td>Zip:</td>
-                    <td><input type="text" size="10" name="order.billZip" value="${sessionScope.order.billZip}"/></td>
+                    <td><input type="text" size="10" name="order.billZip" th:value="${session.order.billZip}"/></td>
                 </tr>
                 <tr>
                     <td>Country:</td>
-                    <td><input type="text" size="15" name="order.billCountry" value="${sessionScope.order.billCountry}"/></td>
+                    <td><input type="text" size="15" name="order.billCountry"
+                               th:value="${session.order.billCountry}"/></td>
                 </tr>
 
                 <tr>
                     <td colspan=2>
-                        <input type="checkbox" name="shippingAddressRequired" />
-                        Ship to different address...</td>
+                        <input type="checkbox" name="shippingAddressRequired"/>
+                        Ship to different address...
+                    </td>
                 </tr>
             </table>
 
-            <fieldset disabled class="shippingAddress">
-                <table>
-                    <tr>
-                        <th colspan=2>Shipping Address</th>
-                    </tr>
 
-                    <tr>
-                        <td>First name:</td>
-                        <td><input type="text" name="order.shipToFirstName" /></td>
-                    </tr>
-                    <tr>
-                        <td>Last name:</td>
-                        <td><input type="text" name="order.shipToLastName" /></td>
-                    </tr>
-                    <tr>
-                        <td>Address 1:</td>
-                        <td><input type="text" size="40" name="order.shipAddress1" /></td>
-                    </tr>
-                    <tr>
-                        <td>Address 2:</td>
-                        <td><input type="text" size="40" name="order.shipAddress2" /></td>
-                    </tr>
-                    <tr>
-                        <td>City:</td>
-                        <td><input type="text" name="order.shipCity" /></td>
-                    </tr>
-                    <tr>
-                        <td>State:</td>
-                        <td><input type="text" size="4" name="order.shipState" /></td>
-                    </tr>
-                    <tr>
-                        <td>Zip:</td>
-                        <td><input type="text" size="10" name="order.shipZip" /></td>
-                    </tr>
-                    <tr>
-                        <td>Country:</td>
-                        <td><input type="text" size="15" name="order.shipCountry" /></td>
-                    </tr>
-                </table>
-            </fieldset>
-
-
-            <input type="submit" name="newOrder" value="Continue" />
+            <input type="submit" name="newOrder" value="Continue"/>
 
         </form>
     </div>

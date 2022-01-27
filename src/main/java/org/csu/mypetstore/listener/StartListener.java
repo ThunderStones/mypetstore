@@ -23,8 +23,10 @@ public class StartListener implements ApplicationListener<AvailabilityChangeEven
         if (ReadinessState.ACCEPTING_TRAFFIC == event.getState()) {
             List<String> LANGUAGE_LIST = Collections.unmodifiableList(Arrays.asList("English", "Japanese"));
             List<String> CATEGORY_LIST = Collections.unmodifiableList(Arrays.asList("FISH", "DOGS", "REPTILES", "CATS", "BIRDS"));
+            List<String> CARD_TYPE_LIST = Collections.unmodifiableList(Arrays.asList("Visa", "MasterCard", "American Express"));
             servletContext.setAttribute("languageList", LANGUAGE_LIST);
             servletContext.setAttribute("categoryList", CATEGORY_LIST);
+            servletContext.setAttribute("cardTypeList", CARD_TYPE_LIST);
             System.out.println("start listener");
         }
 

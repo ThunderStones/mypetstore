@@ -7,7 +7,7 @@ import java.util.List;
 
 @Repository
 public interface OrderMapper {
-    List<Order> getOrderByUsername(String username);
+    List<Order> getOrdersByUsername(String username);
 
     Order getOrder(int orderId);
 

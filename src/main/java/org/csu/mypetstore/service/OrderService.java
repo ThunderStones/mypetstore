@@ -74,7 +74,7 @@ public class OrderService {
      * @return the orders
      */
     public List<Order> getOrdersByUsername(String username) {
-        return orderMapper.getOrderByUsername(username);
+        return orderMapper.getOrdersByUsername(username);
     }
 
     /**

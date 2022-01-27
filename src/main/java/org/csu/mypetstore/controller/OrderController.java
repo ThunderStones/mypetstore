@@ -7,16 +7,12 @@ import org.csu.mypetstore.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
-@SessionAttributes(names = {"order", "shippingAddressRequired", "confirmed"})
+@SessionAttributes(names = {"order", "shippingAddressRequired"})
 @RequestMapping("/order")
 public class OrderController {
 
@@ -30,7 +26,7 @@ public class OrderController {
     private OrderService orderService;
 
     @GetMapping("/list")
-    public String listOrder(Account account, Model model) {
+    public String listOrder(@SessionAttribute("account") Account account, Model model) {
         if (account == null) {
             model.addAttribute("msg", "You MUST sign on before viewing your order.");
             return "/common/error";
@@ -41,10 +37,8 @@ public class OrderController {
     }
 
     @GetMapping("/newOrderForm")
-    public String newOrderForm(HttpSession session, Model model) {
-        boolean isAuthenticated = (boolean) session.getAttribute("isAuthenticated");
-        Account account = (Account) session.getAttribute("account");
-        Cart cart = (Cart) session.getAttribute("cart");
+    public String newOrderForm(@SessionAttribute(name = "cart") Cart cart, @SessionAttribute("account") Account account,
+                               @SessionAttribute("isAuthenticated") boolean isAuthenticated, Model model) {
         System.out.println(isAuthenticated);
         if (account == null || !isAuthenticated) {
             System.out.println(account);
@@ -62,7 +56,7 @@ public class OrderController {
         }
     }
 
-    @PostMapping("newOrder")
+    @RequestMapping("newOrder")
     public String newOrder(boolean shippingAddressRequired, Order order, boolean confirmed, Model model) {
         if (shippingAddressRequired) {
             model.addAttribute("shippingAddressRequired", false);
@@ -71,23 +65,23 @@ public class OrderController {
             return CONFIRM_ORDER;
         } else if (order != null) {
             orderService.insertOrder(order);
-            model.addAttribute("order", new Order());
             model.addAttribute("msg", "Thank you, your order has been submitted.");
             return VIEW_ORDER;
         } else {
-            model.addAttribute("msg","An error occurred processing your order (order was null).");
+            model.addAttribute("msg", "An error occurred processing your order (order was null).");
             return "/common/error";
         }
     }
 
     @GetMapping("/viewOrder")
-    public String viewOrder(Account account, int orderId, Model model) {
+    public String viewOrder(@SessionAttribute("account") Account account, int orderId, Model model) {
         if (account == null) {
             model.addAttribute("msg", "You MUST sign on before viewing your order.");
             return "/common/error";
         }
         Order order = orderService.getOrder(orderId);
         if (account.getUsername().equals(order.getUsername())) {
+            model.addAttribute("order", order);
             return VIEW_ORDER;
         } else {
             model.addAttribute("msg", "You can only view your own orders.");
