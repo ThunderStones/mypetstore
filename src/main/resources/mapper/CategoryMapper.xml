@@ -8,4 +8,17 @@
         FROM category
         WHERE catid = #{categoryId}
     </select>
+    <select id="getAllCategories" resultType="Category">
+        SELECT catid AS categoryId, name, descn AS description
+        FROM category
+    </select>
+    <insert id="insertCategory" parameterType="Category">
+        INSERT INTO category (catid, name)
+        VALUES (#{categoryId}, #{name})
+    </insert>
+    <delete id="deleteCategory" parameterType="string">
+        DELETE
+        FROM category
+        WHERE catid = #{categoryId}
+    </delete>
 </mapper>

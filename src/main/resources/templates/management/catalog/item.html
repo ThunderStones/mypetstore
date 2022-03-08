@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog - Category</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <span class="pageTitle">Item List</span>
+        </div>
+        <div class="layui-col-md1 layui-col-md-offset7">
+            <div class="layui-btn-group">
+                <a href="/catalog/viewAddPage" class="layui-btn layui-btn-primary">Add</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="layui-row" align="center">
+        <span class="errorMsg" th:text="${errorMsg}"></span>
+    </div>
+    <hr class="layui-bg-green">
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <td>Item ID</td>
+            <td>Product ID</td>
+            <td>List Price</td>
+            <td>Unit Cost</td>
+            <td>Supplier</td>
+            <td>Status</td>
+            <td>Attribute</td>
+            <td>Name</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${itemList}">
+            <td th:utext="${item.itemId}"></td>
+            <td th:text="${item.product.productId}"></td>
+            <td th:text="${'$' + #numbers.formatDecimal(item.listPrice, 1, 'COMMA', 2, 'POINT')}"></td>
+            <td th:text="${'$' + #numbers.formatDecimal(item.unitCost, 1, 'COMMA', 2, 'POINT')}"></td>
+            <td th:text="${item.supplierId}"></td>
+            <td th:text="${item.status}"></td>
+            <td th:text="${item.attribute1}"></td>
+            <td th:text="${item.product.name}"></td>
+            <td>
+                <a th:href="@{/catalog/delete/item/{itemId}(itemId=${item.itemId})}" class="layui-btn layui-btn-primary layui-btn-sm">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="/layui/layui.js"></script>
+</body>
+</html>

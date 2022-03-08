@@ -16,4 +16,9 @@
         INSERT INTO LINEITEM (ORDERID, LINENUM, ITEMID, QUANTITY, UNITPRICE)
         VALUES (#{orderId}, #{lineNumber}, #{itemId}, #{quantity}, #{unitPrice})
     </insert>
+    <delete id="deleteLineItemByOrderId" parameterType="int">
+        DELETE
+        FROM LINEITEM
+        WHERE ORDERID = #{orderId}
+    </delete>
 </mapper>

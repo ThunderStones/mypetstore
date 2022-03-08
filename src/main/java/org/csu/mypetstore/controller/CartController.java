@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import org.springframework.web.context.annotation.SessionScope;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Iterator;
@@ -23,11 +22,13 @@ public class CartController {
     private CatalogService catalogService;
 
 
-    private static final String VIEW_CART = "/cart/cart";
+    private static final String VIEW_CART = "cart/cart";
 
     @GetMapping("/addItemToCart")
     public String addItemToCart(Cart cart, String workingItemId, Model model) {
-        if (cart == null) cart = new Cart();
+        if (cart == null) {
+            cart = new Cart();
+        }
         if (cart.containsItemId(workingItemId)) {
             cart.incrementQuantityByItemId(workingItemId);
         } else {
@@ -36,7 +37,7 @@ public class CartController {
             cart.addItem(item, isInStock);
         }
         model.addAttribute("cart", cart);
-        return VIEW_CART;
+        return "cart/cart";
     }
 
     @GetMapping("/removeItem")
@@ -45,7 +46,7 @@ public class CartController {
 
         if (item == null) {
             model.addAttribute("msg", "Attempted to remove null CartItem from Cart.");
-            return "/common/error";
+            return "common/error";
         } else {
             model.addAttribute("cart", cart);
 
@@ -76,13 +77,15 @@ public class CartController {
 
     @GetMapping("/viewCart")
     public String viewCart(Cart cart, Model model) {
-        if (cart == null) cart = new Cart();
+        if (cart == null) {
+            cart = new Cart();
+        }
         model.addAttribute("cart", cart);
         return VIEW_CART;
     }
 
-    @GetMapping("checkout")
-    public String checkout() {
-        return "/cart/checkout";
-    }
+//    @GetMapping("/checkout")
+//    public String checkout() {
+//        return "/cart/checkout";
+//    }
 }

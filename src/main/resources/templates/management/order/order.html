@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="layui-container">
+    <table class="layui-table">
+        <colgroup>
+            <col width="150">
+            <col width="200">
+            <col>
+        </colgroup>
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Username</th>
+            <th>Order Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orderList}">
+            <td th:text="${order.orderId}">${order.id}</td>
+            <td th:text="${order.username}"></td>
+            <td th:text="${#dates.format(order.orderDate)}"></td>
+            <td th:text="${order.status}"></td>
+            <td>
+                <a th:href="@{/order/orderDetail/{orderId}(orderId=${order.orderId})}"
+                   class="layui-btn layui-btn-xs">More
+                    Information</a>
+                <a th:href="@{/order/delete/{orderId}(orderId=${order.orderId})}"
+                   class="layui-btn layui-btn-danger layui-btn-xs">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="/layui/layui.js"></script>
+</body>
+</html>

@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="layui-container">
+    <form action="/order/edit" class="layui-form" method="post">
+        <div class="layui-form-item">
+            <label class="layui-form-label">OrderId</label>
+            <label th:text="${order.orderId}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Username</label>
+            <label th:text="${order.username}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Order Date</label>
+            <label th:text="${#dates.format(order.orderDate)}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Shipping Address1</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipAddress1" required lay-verify="required" th:value="${order.shipAddress1}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Shipping Address2</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipAddress2" required lay-verify="required" th:value="${order.shipAddress2}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Shipping City</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipCity" required lay-verify="required" th:value="${order.shipCity}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Shipping State</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipState" required lay-verify="required" th:value="${order.shipState}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Shipping Zip</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipZip" required lay-verify="required" th:value="${order.shipZip}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Shipping Country</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipCountry" required lay-verify="required" th:value="${order.shipCountry}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill Address1</label>
+            <div class="layui-input-block">
+                <input type="text" name="billAddress1" required lay-verify="required" th:value="${order.billAddress1}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill Address2</label>
+            <div class="layui-input-block">
+                <input type="text" name="billAddress2" required lay-verify="required" th:value="${order.billAddress2}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill City</label>
+            <div class="layui-input-block">
+                <input type="text" name="billCity" required lay-verify="required" th:value="${order.billCity}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill State</label>
+            <div class="layui-input-block">
+                <input type="text" name="billState" required lay-verify="required" th:value="${order.billState}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill Zip</label>
+            <div class="layui-input-block">
+                <input type="text" name="billZip" required lay-verify="required" th:value="${order.billZip}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Courier</label>
+            <div class="layui-input-block">
+                <input type="text" name="courier" required lay-verify="required" th:value="${order.courier}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Total Price</label>
+            <label th:text="${'$'+#numbers.formatDecimal(order.totalPrice, 1, 'COMMA', 2, 'POINT')}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md-offset4 layui-col-md8">
+                <table class="layui-table">
+                    <thead>
+                    <tr>
+                        <th>Item ID</th>
+                        <th>Description</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="item : ${order.lineItems}">
+                            <td th:text="${item.itemId}"></td>
+                            <td th:text="${#objects.nullSafe(item.item.attribute1, ' ') +
+                            #objects.nullSafe(item.item.attribute2, ' ') +
+                            #objects.nullSafe(item.item.attribute3, ' ') +
+                            #objects.nullSafe(item.item.attribute4, ' ') +
+                            #objects.nullSafe(item.item.attribute5, ' ') +
+                            #objects.nullSafe(item.item.product.name, ' ')}"></td>
+                            <td th:text="${item.quantity}"></td>
+                            <td th:text="${#numbers.formatDecimal(item.unitPrice, 1, 'COMMA', 2, 'POINT')}"></td>
+                            <td th:text="${#numbers.formatDecimal(item.total, 1, 'COMMA', 2, 'POINT')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill To First Name</label>
+            <div class="layui-input-block">
+                <input type="text" name="billToFirstName" required lay-verify="required"
+                       th:value="${order.billToFirstName}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Bill To Last Name</label>
+            <div class="layui-input-block">
+                <input type="text" name="billToLastName" required lay-verify="required"
+                       th:value="${order.billToLastName}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Ship To First Name</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipToFirstName" required lay-verify="required"
+                       th:value="${order.shipToFirstName}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Ship To Last Name</label>
+            <div class="layui-input-block">
+                <input type="text" name="shipToLastName" required lay-verify="required"
+                       th:value="${order.shipToLastName}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Credit Card</label>
+            <label th:text="${order.creditCard}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Expiration Date</label>
+            <label th:text="${order.expiryDate}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Card Type</label>
+            <label th:text="${order.cardType}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">locale</label>
+            <label th:text="${order.locale}" class="layui-form-label"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Status</label>
+            <div class="layui-input-block">
+                <input type="text" name="status" required lay-verify="required" th:value="${order.status}"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block" id="button">
+                <button class="layui-btn">Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+                <a href="/order/orderMain" class="layui-btn layui-btn-primary">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="/layui/layui.js"></script>
+</body>
+</html>

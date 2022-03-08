@@ -15,4 +15,12 @@ public interface ItemMapper {
     int getInventoryQuantity(String itemId);
 
     void updateInventoryQuantity(Map<String, Object> param);
+
+    void insertItem(Item item);
+
+    void deleteItem(String itemId);
+
+    void insertItemInventory(Item item);
+
+    void deleteItemInventory(String itemId);
 }

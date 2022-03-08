@@ -85,4 +85,71 @@
         VALUES (#{orderId,jdbcType=NUMERIC}, #{orderId,jdbcType=NUMERIC}, #{orderDate,jdbcType=TIMESTAMP},
                 #{status,jdbcType=VARCHAR})
     </insert>
+
+    <select id="getAllOrder" resultType="Order">
+        select ORDERS.ORDERID as orderId,
+               BILLADDR1      AS billAddress1,
+               BILLADDR2      AS billAddress2,
+               BILLCITY,
+               BILLCOUNTRY,
+               BILLSTATE,
+               BILLTOFIRSTNAME,
+               BILLTOLASTNAME,
+               BILLZIP,
+               SHIPADDR1      AS shipAddress1,
+               SHIPADDR2      AS shipAddress2,
+               SHIPCITY,
+               SHIPCOUNTRY,
+               SHIPSTATE,
+               SHIPTOFIRSTNAME,
+               SHIPTOLASTNAME,
+               SHIPZIP,
+               CARDTYPE,
+               COURIER,
+               CREDITCARD,
+               EXPRDATE       AS expiryDate,
+               LOCALE,
+               ORDERDATE,
+               ORDERS.ORDERID,
+               TOTALPRICE,
+               USERID         AS username,
+               STATUS
+        FROM ORDERS,
+             ORDERSTATUS
+        WHERE ORDERS.ORDERID = ORDERSTATUS.ORDERID
+    </select>
+    <update id="updateOrder" parameterType="order">
+        UPDATE ORDERS
+        SET SHIPADDR1       = #{shipAddress1},
+            SHIPADDR2       = #{shipAddress2,jdbcType=VARCHAR},
+            SHIPCITY        = #{shipCity},
+            SHIPSTATE       = #{shipState},
+            SHIPZIP         = #{shipZip},
+            SHIPCOUNTRY     = #{shipCountry},
+            BILLADDR1       = #{billAddress1},
+            BILLADDR2       = #{billAddress2,jdbcType=VARCHAR},
+            BILLCITY        = #{billCity},
+            BILLSTATE       = #{billState},
+            BILLZIP         = #{billZip},
+            BILLCOUNTRY     = #{billCountry},
+            COURIER         = #{courier},
+            BILLTOFIRSTNAME = #{billToFirstName},
+            BILLTOLASTNAME  = #{billToLastName},
+            SHIPTOFIRSTNAME = #{shipToFirstName},
+            SHIPTOLASTNAME  = #{shipToLastName}
+        WHERE ORDERS.ORDERID = #{orderId}
+    </update>
+    <update id="updateOrderStatus" parameterType="order">
+        UPDATE ORDERSTATUS
+        SET STATUS = #{status,jdbcType=VARCHAR}
+        WHERE ORDERID = #{orderId}
+    </update>
+    <delete id="deleteOrder" parameterType="int">
+        DELETE FROM ORDERS
+        WHERE ORDERS.ORDERID = #{orderId}
+    </delete>
+    <delete id="deleteOrderStatus" parameterType="int">
+        DELETE FROM ORDERSTATUS
+        WHERE ORDERID = #{orderId}
+    </delete>
 </mapper>

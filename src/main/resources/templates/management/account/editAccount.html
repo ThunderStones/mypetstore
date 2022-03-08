@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Login Form</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="/css/management.css">
+</head>
+<body>
+<div class="layui-container">
+    <form action="/account/editAccount" method="post" class="layui-form">
+
+        <div class="layui-form-item"><h3 class="layui-">User Information</h3></div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Username</label>
+            <label th:text="${account.username}" class="layui-form-label"
+                   id="username">${sessionScope.account.username}</label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Password</label>
+            <div class="layui-input-block">
+                <input type="password" name="password" lay-verify="required" placeholder="Password"
+                       autocomplete="off" class="layui-input" size="20">
+            </div>
+        </div>
+
+        <h3>Account Information</h3>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">First name</label>
+            <div class="layui-input-block">
+                <input type="text" name="firstName" th:value="${#objects.nullSafe(account.firstName, '')}"
+                       class="layui-input"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Last name</label>
+            <div class="layui-input-block">
+                <input type="text" name="lastName" th:value="${#objects.nullSafe(account.lastName, '')}"
+                       class="layui-input"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Email</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="email" class="layui-input"
+                       th:value="${#objects.nullSafe(account.email, '')}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Phone</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="phone" class="layui-input"
+                       th:value="${#objects.nullSafe(account.phone, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Address 1</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="address1" class="layui-input"
+                       th:value="${#objects.nullSafe(account.address1, '')}"/>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Address2</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="address2" class="layui-input"
+                       th:value="${#objects.nullSafe(account.address2, '')}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">City</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="city" class="layui-input"
+                       th:value="${#objects.nullSafe(account.city, '')}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">State</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="state" class="layui-input"
+                       th:value="${#objects.nullSafe(account.state, '')}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Zip</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="zip" class="layui-input"
+                       th:value="${#objects.nullSafe(account.zip, '')}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Country</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="country" class="layui-input"
+                       th:value="${#objects.nullSafe(account.country, '')}"/>
+            </div>
+        </div>
+
+        <h3>Profile Information</h3>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Language Preference</label>
+            <div class="layui-input-block">
+                <select name="languagePreference">
+                    <option th:each="language:${application.languageList}" th:value="${language}" th:text="${language}"
+                            th:selected="${language} == ${account.languagePreference}">
+                        language
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Favourite Category</label>
+            <div class="layui-input-block">
+                <select name="favouriteCategory">
+                    <option th:each="category:${application.categoryList}" th:value="${category}" th:text="${category}"
+                            th:selected="${category} == ${account.favouriteCategoryId}">
+                        category
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Enable MyList</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="listOption" lay-skin="switch"
+                       th:checked="${account.listOption}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">Enable MyBanne</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="bannerOption" lay-skin="switch"
+                       th:checked="${account.bannerOption}"/>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn">Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+                <a href="/account/getAllAccount" class="layui-btn layui-btn-primary">Back</a>
+            </div>
+        </div>
+        <input type="hidden" name="form" value="management">
+    </form>
+    <script src="/layui/layui.js"></script>
+
+</div>
+</body>
+</html>

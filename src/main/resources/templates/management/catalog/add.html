@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog - Category</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row" align="center" th:text="${#objects.nullSafe(errorMsg, '')}"></div>
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <span class="pageTitle">Add Category</span>
+        </div>
+    </div>
+    <hr>
+    <form class="layui-form" method="post" action="/catalog/add/category">
+        <div class="layui-row">
+            <div class="layui-form-item">
+                <label class="layui-form-label">Category Name</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="Category Name"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-row" align="center">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn">Submit</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="separator"></div>
+
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <span class="pageTitle">Add Product</span>
+        </div>
+    </div>
+    <hr>
+    <form class="layui-form" action="/catalog/add/product">
+        <div class="layui-row">
+            <div class="layui-form-item">
+                <label class="layui-form-label">Product Name</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" required lay-verify="required" placeholder="Product Name"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Product ID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="productId" required lay-verify="required" placeholder="Product ID"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Product Description</label>
+                <div class="layui-input-block">
+                    <input type="text" name="description" required lay-verify="required"
+                           placeholder="Product Description"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Product Category</label>
+                <div class="layui-input-block">
+                    <select name="categoryId" lay-verify="required">
+                        <option th:each="category: ${categoryList}" th:value="${category.categoryId}"
+                                th:text="${category.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-row" align="center">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="separator"></div>
+
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <span class="pageTitle">Add Item</span>
+        </div>
+    </div>
+    <hr>
+    <form action="/catalog/add/item" class="layui-form">
+        <div class="layui-row">
+<!--            <div class="layui-form-item">-->
+<!--                <label class="layui-form-label">Item Name</label>-->
+<!--                <div class="layui-input-block">-->
+<!--                    <input type="text" name="" required lay-verify="required" placeholder="Item Name"-->
+<!--                           autocomplete="off"  class="layui-input">-->
+<!--                </div>-->
+<!--            </div>-->
+            <div class="layui-form-item">
+                <label class="layui-form-label">Item ID</label>
+                <div class="layui-input-block">
+                    <input type="text" name="itemId" required lay-verify="required" placeholder="Item ID"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Item Description</label>
+                <div class="layui-input-block">
+                    <input type="text" name="attribute1" required lay-verify="required"
+                           placeholder="Item Description"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Product</label>
+                <div class="layui-input-block">
+                    <select name="productId" lay-verify="required">
+                        <option th:each="product: ${productList}" th:value="${product.productId}"
+                                th:text="${product.name}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Item List Price</label>
+                <div class="layui-input-block">
+                    <input type="text" name="listPrice" required lay-verify="required" placeholder="Item List Price"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">Item Unit Cost</label>
+                <div class="layui-input-block">
+                    <input type="text" name="unitCost" required lay-verify="required" placeholder="Item Unit Cost"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-row" align="center">
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button class="layui-btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+</div>
+<script src="/layui/layui.js"></script>
+
+</body>
+</html>

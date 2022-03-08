@@ -92,4 +92,19 @@ public class OrderService {
         sequenceMapper.updateSequence(parameterObject);
         return sequence.getNextId();
     }
+
+    public List<Order> getAllOrder() {
+        return orderMapper.getAllOrder();
+    }
+
+    public void updateOrder(Order order) {
+        orderMapper.updateOrder(order);
+        orderMapper.updateOrderStatus(order);
+    }
+
+    public void deleteOrder(int orderId) {
+        orderMapper.deleteOrder(orderId);
+        orderMapper.deleteOrderStatus(orderId);
+        lineItemMapper.deleteLineItemByOrderId(orderId);
+    }
 }

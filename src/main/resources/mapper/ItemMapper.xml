@@ -56,4 +56,23 @@
         SET QTY = QTY - #{increment}
         WHERE ITEMID = #{itemId}
     </update>
+    <insert id="insertItem" parameterType="item">
+        INSERT INTO ITEM (ITEMID, LISTPRICE, UNITCOST, SUPPLIER, PRODUCTID, STATUS)
+        VALUES (#{itemId}, #{listPrice}, #{unitCost}, #{supplierId}, #{productId}, #{status});
+    </insert>
+    <insert id="insertItemInventory" parameterType="item">
+        INSERT INTO INVENTORY (ITEMID, QTY)
+        VALUES (#{itemId}, #{quantity});
+    </insert>
+    <delete id="deleteItem" parameterType="string">
+        DELETE
+        FROM ITEM
+        WHERE ITEMID = #{value};
+    </delete>
+    <delete id="deleteItemInventory" parameterType="string">
+        DELETE
+        FROM INVENTORY
+        WHERE ITEMID = #{value}
+    </delete>
+
 </mapper>

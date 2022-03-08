@@ -15,7 +15,7 @@
             </div>
 
             <div id="Banner">
-                <div th:utext="${session.account?.bannerName}"></div>
+                <div th:utext="${session.account?.bannerName}" th:if="${session.account?.bannerOption}"></div>
 
             </div>
 

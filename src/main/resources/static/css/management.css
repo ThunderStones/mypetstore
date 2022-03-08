@@ -1,0 +1,53 @@
+iframe {
+    border: 0;
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+div.layui-form-item>label:nth-child(1) {
+    text-align: left;
+    width: 33%;
+}
+
+div.layui-form-item>label:nth-child(2) {
+    text-align: left;
+    width: 60%;
+}
+
+div.layui-input-block>input,
+div.layui-select-title>input {
+    width: 67%;
+}
+div.layui-select-title>.layui-edge {
+    right: 60px;
+}
+
+
+#button {
+    margin-left: 40%;
+}
+
+div.categoryItem {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    height: 30px;
+}
+.pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    height: 30px;
+}
+
+div.separator {
+    height: 2px;
+    background-color: #047750;
+    margin: 30px 0;
+}
+
+span.errorMsg {
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+}

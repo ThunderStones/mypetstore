@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalog - Category</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <span class="pageTitle">Product List</span>
+        </div>
+        <div class="layui-col-md1 layui-col-md-offset7">
+            <div class="layui-btn-group">
+                <a href="/catalog/viewAddPage" class="layui-btn layui-btn-primary">Add</a>
+            </div>
+
+        </div>
+    </div>
+    <div class="layui-row" align="center">
+        <span class="errorMsg" th:text="${errorMsg}"></span>
+    </div>
+    <hr class="layui-bg-green">
+
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <td></td>
+            <td>Product ID</td>
+            <td>Category</td>
+            <td>Name</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="product : ${productList}">
+
+
+            <td th:utext="${product.description}"></td>
+            <td>
+                <a th:href="@{/catalog/viewItemList/{productId}(productId=${product.productId})}"
+                   th:text="${product.productId}">
+                    ${product.productId}
+                </a>
+            </td>
+            <td th:text="${product.categoryId}"></td>
+            <td th:text="${product.name}"></td>
+            <td>
+                <a th:href="@{/catalog/delete/product/{productId}(productId=${product.productId})}" class="layui-btn layui-btn-primary">Delete</a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="/layui/layui.js"></script>
+</body>
+</html>
