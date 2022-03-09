@@ -9,6 +9,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Order implements Serializable {
+    private final long serialVersionUID = 8087807418662326966L;
 
     private int orderId;
     private String username;
@@ -304,5 +305,30 @@ public class Order implements Serializable {
     }
     public void addLineItem(LineItem lineItem) {
         lineItems.add(lineItem);
+    }
+
+    public void setShippingInfo(Order order) {
+        shipToFirstName = order.getShipToFirstName();
+        shipToLastName = order.getShipToLastName();
+        shipAddress1 = order.getShipAddress1();
+        shipAddress2 = order.getShipAddress2();
+        shipCity = order.getShipCity();
+        shipState = order.getShipState();
+        shipZip = order.getShipZip();
+        shipCountry = order.getShipCountry();
+    }
+
+    public void setOrderInfo(Order order) {
+        creditCard = order.getCreditCard();
+        expiryDate = order.getExpiryDate();
+        expiryDate = order.getCardType();
+        billToFirstName = order.getBillToFirstName();
+        billToLastName = order.getBillToLastName();
+        billAddress1 = order.getBillAddress1();
+        billAddress2 = order.getBillAddress2();
+        billCity = order.getBillCity();
+        billState = order.getBillState();
+        billZip = order.getBillZip();
+        billCountry = order.getBillCountry();
     }
 }

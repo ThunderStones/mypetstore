@@ -9,7 +9,7 @@ public class Account implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    private String status;
+    private String status = "OK";
     private String address1;
     private String address2;
     private String city;

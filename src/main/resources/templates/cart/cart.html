@@ -77,7 +77,7 @@
         </div>
 
         <div id="MyList" th:if="${session.account} != null && ${session.isAuthenticated} && ${session.account.listOption}"
-            th:replace="/cart/includeMyList::myList">
+            th:replace="cart/includeMyList::myList">
 
         </div>
 

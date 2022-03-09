@@ -20,7 +20,7 @@
       <tr>
         <th align="center" colspan="2"><font size="4"><b>Order</b></font>
           <br />
-          <font size="3"><b> <span th:text="${#dates.format(session.order.orderDate)}"></span></b></font>
+          <font size="3"><b> <span th:text="${#dates.format(_order.orderDate)}"></span></b></font>
         </th>
       </tr>
 
@@ -29,73 +29,73 @@
       </tr>
       <tr>
         <td>First name:</td>
-        <td th:text="${session.order.billToFirstName}"><c:out value="${sessionScope.order.billToFirstName}" /></td>
+        <td th:text="${_order.billToFirstName}"></td>
       </tr>
       <tr>
         <td>Last name:</td>
-        <td th:text="${session.order.billToLastName}"><c:out value="${sessionScope.order.billToLastName}" /></td>
+        <td th:text="${_order.billToLastName}"></td>
       </tr>
       <tr>
         <td>Address 1:</td>
-        <td th:text="session.order.billAddress1"><c:out value="${sessionScope.order.billAddress1}" /></td>
+        <td th:text="${_order.billAddress1}"></td>
       </tr>
       <tr>
         <td>Address 2:</td>
-        <td th:text="${session.order.billAddress2}"><c:out value="${sessionScope.order.billAddress2}" /></td>
+        <td th:text="${_order.billAddress2}"></td>
       </tr>
       <tr>
         <td>City:</td>
-        <td th:text="${session.order.billCity}"><c:out value="${sessionScope.order.billCity}" /></td>
+        <td th:text="${_order.billCity}"></td>
       </tr>
       <tr>
         <td>State:</td>
-        <td th:text="${session.order.billState}"><c:out value="${sessionScope.order.billState}" /></td>
+        <td th:text="${_order.billState}"></td>
       </tr>
       <tr>
         <td>Zip:</td>
-        <td th:text="${session.order.billZip}"><c:out value="${sessionScope.order.billZip}" /></td>
+        <td th:text="${_order.billZip}"></td>
       </tr>
       <tr>
         <td>Country:</td>
-        <td th:text="${session.order.billCountry}"><c:out value="${sessionScope.order.billCountry}" /></td>
+        <td th:text="${_order.billCountry}"></td>
       </tr>
       <tr>
         <th colspan="2">Shipping Address</th>
       </tr>
       <tr>
         <td>First name:</td>
-        <td th:text="${session.order.shipToFirstName}"><c:out value="${sessionScope.order.shipToFirstName}" /></td>
+        <td th:text="${_order.shipToFirstName}"></td>
       </tr>
       <tr>
         <td>Last name:</td>
-        <td th:text="${session.order.shipToLastName}"><c:out value="${sessionScope.order.shipToLastName}" /></td>
+        <td th:text="${_order.shipToLastName}"></td>
       </tr>
       <tr>
         <td>Address 1:</td>
-        <td th:text="${session.order.shipAddress1}"><c:out value="${sessionScope.order.shipAddress1}" /></td>
+        <td th:text="${_order.shipAddress1}"></td>
       </tr>
       <tr>
         <td>Address 2:</td>
-        <td th:text="${session.order.shipAddress2}"><c:out value="${sessionScope.order.shipAddress2}" /></td>
+        <td th:text="${_order.shipAddress2}"></td>
       </tr>
       <tr>
         <td>City:</td>
-        <td th:text="${session.order.shipCity}"><c:out value="${sessionScope.order.shipCity}" /></td>
+        <td th:text="${_order.shipCity}"></td>
       </tr>
       <tr>
         <td>State:</td>
-        <td th:text="${session.order.shipState}"><c:out value="${sessionScope.order.shipState}" /></td>
+        <td th:text="${_order.shipState}"></td>
       </tr>
       <tr>
         <td>Zip:</td>
-        <td th:text="${session.order.shipZip}"><c:out value="${sessionScope.order.shipZip}" /></td>
+        <td th:text="${_order.shipZip}"></td>
       </tr>
       <tr>
         <td>Country:</td>
-        <td th:text="${session.order.shipCountry}"><c:out value="${sessionScope.order.shipCountry}" /></td>
+        <td th:text="${_order.shipCountry}"></td>
       </tr>
     </table>
-    <a class="Button" href="newOrder?confirmed=true">
+    <a class="Button" href="newOrder?confirmed=true&from=2">
       Confirm
     </a></div>
 
