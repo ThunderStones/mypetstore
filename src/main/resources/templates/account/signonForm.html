@@ -19,13 +19,13 @@
                 <div class="loginBox">
                     <input type="password" name="password" value="j2ee" required/><label>Password</label></div>
                 <div class="loginBox">
-                    <input type="text" name="captchaCode" required><label>CaptchaCode</label><img src="image.jpg">
+                    <input type="text" name="captchaCode" required><label>CaptchaCode</label><img th:src="${path}">
                 </div>
-                <font color="red">${msg}</font><br>
+                <font color="red" th:text="${msg}">${msg}</font><br>
                 <input type="submit" name="signon" value="Login" class="loginButton"/>
             </div>
         </form>
-        Need a user name and password? <a href="/account/registerForm">Register Now!</a>
+        Need a username and password? <a href="/account/registerForm">Register Now!</a>
     </div>
 
 </div>

@@ -35,10 +35,10 @@
             <tr>
                 <td>CaptchaCode:</td>
                 <td><input type="text" name="captchaCode"></td>
-                <td><img src="image.jpg" alt="CaptchaCode"></td>
+                <td><img th:src="${path}" alt="CaptchaCode"></td>
             </tr>
         </table>
-        <label class="ErrorMsg">${requestScope.msg}</label><br>
+        <label class="ErrorMsg" th:text="${msg}">${requestScope.msg}</label><br>
         <input type="submit" name="newAccount" value="Register" />
 
     </form></div>

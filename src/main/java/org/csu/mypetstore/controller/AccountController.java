@@ -4,16 +4,25 @@ import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.AccountService;
 import org.csu.mypetstore.service.CatalogService;
+import org.csu.mypetstore.util.CaptchaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.annotation.SessionScope;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping("/account")
 @SessionAttributes(names = {"account", "myList", "isAuthenticated"})
+@SessionScope
 public class AccountController {
     private static final String SIGNON_FORM = "account/signonForm";
     private static final String MAIN = "catalog/main";
@@ -22,18 +31,29 @@ public class AccountController {
     private Account account = new Account();
     private boolean isAuthenticated = false;
     private List<Product> myList;
+
+    private String captchaCode;
+
+
     @Autowired
     private AccountService accountService;
     @Autowired
     private CatalogService catalogService;
+
     @GetMapping("/signonForm")
-    public String viewSignonForm() {
+    public String viewSignonForm(Model model) {
+        String path = generateCaptcha();
+        model.addAttribute("path", path);
         return SIGNON_FORM;
     }
 
     @PostMapping("/signon")
-    public String signon(Account account, Model model) {
+    public String signon(Account account, Model model, String captchaCode) {
         System.out.println(this.account.getUsername());
+        if (!this.captchaCode.equalsIgnoreCase(captchaCode)) {
+            model.addAttribute("msg", "Error: Captcha Code is not correct!");
+            return viewSignonForm(model);
+        }
         account = accountService.getAccount(account.getUsername(), account.getPassword());
         if (account == null) {
             model.addAttribute("msg", "Invalid username or password.  Signon failed.");
@@ -55,12 +75,18 @@ public class AccountController {
 
     @GetMapping("/registerForm")
     public String viewRegisterForm(Model model) {
+        model.addAttribute("path", generateCaptcha());
         model.addAttribute("account", account);
         return REGISTER_FORM;
     }
 
     @PostMapping("/register")
-    public String register(Account account, Model model) {
+    public String register(Account account, Model model, String captchaCode) {
+        if (!this.captchaCode.equalsIgnoreCase(captchaCode)) {
+            model.addAttribute("msg", "Error: Captcha Code is not correct!");
+            model.addAttribute("account", account);
+            return viewSignonForm(model);
+        }
         accountService.insertAccount(account);
         account = accountService.getAccount(account.getUsername());
         myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
@@ -132,5 +158,34 @@ public class AccountController {
     @GetMapping("/adminLogin")
     public String adminLogin() {
         return "management/account/main";
+    }
+
+    /*
+     *
+     * @return the path of captcha image
+     */
+    private String generateCaptcha() {
+        CaptchaUtil captchaUtil = CaptchaUtil.Instance();
+        captchaCode = captchaUtil.getString();
+        String staticPath = Objects.requireNonNull(Objects.requireNonNull(ClassUtils.getDefaultClassLoader())
+                .getResource("static")).getPath();
+        String captchaPath = staticPath + File.separator + "captcha" + File.separator + captchaCode + ".jpg";
+        String visitPath = ".." + File.separator + "captcha"+ File.separator + captchaCode + ".jpg";
+        File file = new File(captchaPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        try {
+            BufferedImage bufferedImage = captchaUtil.getImage();
+            ImageIO.write(bufferedImage, "jpg", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return visitPath;
+    }
+
+    public static void main(String[] args) {
+        AccountController accountController = new AccountController();
+        System.out.println(accountController.generateCaptcha());
     }
 }
