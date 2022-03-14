@@ -75,9 +75,9 @@
     </update>
     <insert id="insertAccount" parameterType="Account">
         INSERT INTO ACCOUNT
-        (EMAIL, FIRSTNAME, LASTNAME, STATUS, ADDR1, ADDR2, CITY, STATE, ZIP, COUNTRY, PHONE, USERID, STATUS)
+        (EMAIL, FIRSTNAME, LASTNAME, STATUS, ADDR1, ADDR2, CITY, STATE, ZIP, COUNTRY, PHONE, USERID)
         VALUES (#{email}, #{firstName}, #{lastName}, #{status}, #{address1}, #{address2,jdbcType=VARCHAR}, #{city},
-                #{state}, #{zip}, #{country}, #{phone}, #{username}, #{status})
+                #{state}, #{zip}, #{country}, #{phone}, #{username})
     </insert>
     <update id="updateProfile" parameterType="Account">
         <bind name="listOptionValue" value="_parameter.isListOption() ? 1 : 0"/>

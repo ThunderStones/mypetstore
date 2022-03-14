@@ -1,8 +1,10 @@
 package org.csu.mypetstore.controller;
 
 import org.csu.mypetstore.domain.Account;
+import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.domain.Product;
 import org.csu.mypetstore.service.AccountService;
+import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.util.CaptchaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +23,7 @@ import java.util.Objects;
 
 @Controller
 @RequestMapping("/account")
-@SessionAttributes(names = {"account", "myList", "isAuthenticated"})
+@SessionAttributes(names = {"account", "myList", "isAuthenticated", "cart"})
 @SessionScope
 public class AccountController {
     private static final String SIGNON_FORM = "account/signonForm";
@@ -39,6 +41,9 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private CatalogService catalogService;
+    @Autowired
+    private CartService cartService;
+
 
     @GetMapping("/signonForm")
     public String viewSignonForm(Model model) {
@@ -69,6 +74,8 @@ public class AccountController {
             model.addAttribute("account", account);
             model.addAttribute("myList", myList);
             model.addAttribute("isAuthenticated", true);
+            Cart cart = cartService.getCart(account.getUsername());
+            model.addAttribute("cart", cart);
             return MAIN;
         }
     }
@@ -81,13 +88,19 @@ public class AccountController {
     }
 
     @PostMapping("/register")
-    public String register(Account account, Model model, String captchaCode) {
+    public String register(Account account, Model model, String captchaCode, String repeatedPassword) {
         if (!this.captchaCode.equalsIgnoreCase(captchaCode)) {
             model.addAttribute("msg", "Error: Captcha Code is not correct!");
             model.addAttribute("account", account);
-            return viewSignonForm(model);
+            return viewRegisterForm(model);
+        }
+        if (!Objects.equals(account.getPassword(), repeatedPassword)) {
+            model.addAttribute("msg", "Error: Password and  repeat password are not same!");
+            return viewRegisterForm(model);
         }
         accountService.insertAccount(account);
+        cartService.initCart(account.getUsername());
+        cartService.updateCart(account.getUsername(), new Cart());
         account = accountService.getAccount(account.getUsername());
         myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
         isAuthenticated = true;
@@ -160,7 +173,7 @@ public class AccountController {
         return "management/account/main";
     }
 
-    /*
+    /**
      *
      * @return the path of captcha image
      */
@@ -184,8 +197,10 @@ public class AccountController {
         return visitPath;
     }
 
-    public static void main(String[] args) {
-        AccountController accountController = new AccountController();
-        System.out.println(accountController.generateCaptcha());
+    @GetMapping("/usernameExist")
+    @ResponseBody
+    public boolean usernameExist(String username) {
+        return accountService.getAccount(username) != null;
     }
+
 }

@@ -8,10 +8,7 @@ import org.csu.mypetstore.service.CatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.ApplicationScope;
 
 import java.util.ArrayList;
@@ -79,6 +76,24 @@ public class CatalogController {
             return ITEM;
         }
         return MAIN;
+    }
+
+    @GetMapping("/previewCategory")
+    @ResponseBody
+    public List<Product> previewCategory(String categoryId) {
+        if (categoryId != null) {
+            return catalogService.getProductListByCategory(categoryId);
+        }
+        return null;
+    }
+
+    @GetMapping("/searchAutoComplete")
+    @ResponseBody
+    public List<Product> searchAutoComplete(String keywords) {
+        if (keywords != null) {
+            return catalogService.searchProductList(keywords);
+        }
+        return null;
     }
 
     @GetMapping("/viewCategoryList")

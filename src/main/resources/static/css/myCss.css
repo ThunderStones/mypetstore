@@ -14,6 +14,9 @@
 div.preview {
     position: fixed;
     background-color: #fff;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 div.preview ul{
@@ -199,4 +202,14 @@ div.login input.loginButton:hover {
 
 input[name='captchaCode'] {
     width: 78% !important;
+}
+
+.okTips {
+    color: #4caf50;
+    font-size: 16px;
+}
+
+.errorTips {
+    color: #f44336;
+    font-size: 16px;
 }
