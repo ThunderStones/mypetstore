@@ -69,11 +69,10 @@ public class OrderController {
             savedOrder.setOrderInfo(order);
             model.addAttribute("_order", savedOrder);
             if (shippingAddressRequired) {
+                savedOrder.setShippingInfo(order);
                 model.addAttribute("shippingAddressRequired", false);
-                return SHIPPING;
-            } else {
-                return CONFIRM_ORDER;
             }
+            return CONFIRM_ORDER;
 
         } else if (from == 1) {
             model.addAttribute("_order", savedOrder);

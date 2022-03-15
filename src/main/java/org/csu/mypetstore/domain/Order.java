@@ -321,7 +321,6 @@ public class Order implements Serializable {
     public void setOrderInfo(Order order) {
         creditCard = order.getCreditCard();
         expiryDate = order.getExpiryDate();
-        expiryDate = order.getCardType();
         billToFirstName = order.getBillToFirstName();
         billToLastName = order.getBillToLastName();
         billAddress1 = order.getBillAddress1();

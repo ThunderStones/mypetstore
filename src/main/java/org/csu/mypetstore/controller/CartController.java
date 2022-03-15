@@ -31,8 +31,9 @@ public class CartController {
 
     @GetMapping("/addItemToCart")
     public String addItemToCart(Cart cart, String workingItemId, Model model,
-                                @SessionAttribute(value = "account", required = false) Account account) {
-        if (account == null) {
+                                @SessionAttribute(value = "account", required = false) Account account,
+                                @SessionAttribute(value = "isAuthenticated", required = false) boolean isAuthenticated) {
+        if (!isAuthenticated) {
             model.addAttribute("msg", "You must be logged in to add items to your cart.");
             return "forward:/account/signonForm";
         }
@@ -51,8 +52,9 @@ public class CartController {
 
     @GetMapping("/removeItem")
     public String removeItemFromCart(String workingItemId, Cart cart, Model model,
-                                     @SessionAttribute(value = "account", required = false) Account account) {
-        if (account == null) {
+                                     @SessionAttribute(value = "account", required = false) Account account,
+                                     @SessionAttribute(value = "isAuthenticated", required = false) boolean isAuthenticated) {
+        if (!isAuthenticated) {
             model.addAttribute("msg", "You must be logged in to add items to your cart.");
             return "forward:/account/signonForm";
         }
@@ -70,8 +72,9 @@ public class CartController {
 
     @GetMapping("/updateCartQuantity")
     public String updateCartQuantity(HttpServletRequest httpServletRequest, Cart cart, Model model,
-                                     @SessionAttribute(value = "account", required = false) Account account) {
-        if (account == null) {
+                                     @SessionAttribute(value = "account", required = false) Account account,
+                                     @SessionAttribute(value = "isAuthenticated", required = false) boolean isAuthenticated) {
+        if (!isAuthenticated) {
             model.addAttribute("msg", "You must be logged in to add items to your cart.");
             return "forward:/account/signonForm";
         }
@@ -96,18 +99,18 @@ public class CartController {
     }
 
     @GetMapping("/viewCart")
-    public String viewCart(Cart cart, Model model) {
-        if (cart == null) {
-            cart = new Cart();
+    public String viewCart(Model model, @SessionAttribute(value = "isAuthenticated", required = false) boolean isAuthenticated) {
+        if (!isAuthenticated) {
+            model.addAttribute("msg", "You must be logged in to add items to your cart.");
+            return "forward:/account/signonForm";
         }
-        model.addAttribute("cart", cart);
         return VIEW_CART;
     }
 
     //update cart
     @PostMapping(value = "/updateCart", produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String updateCart(Cart cart, Account account, HttpServletRequest request, Model model) {
+    public String updateCart(Cart cart, @SessionAttribute Account account, HttpServletRequest request, Model model) {
         Iterator<CartItem> cartItems = cart.getAllCartItems();
         JSONArray responseData = new JSONArray();
         while (cartItems.hasNext()) {
@@ -124,6 +127,7 @@ public class CartController {
             responseData.add(jsonObject);
 
         }
+        cartService.updateCart(account.getUsername(), cart);
         return responseData.toJSONString();
     }
 }
