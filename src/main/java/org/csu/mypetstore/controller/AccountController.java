@@ -47,7 +47,9 @@ public class AccountController {
 
     @GetMapping("/signonForm")
     public String viewSignonForm(Model model) {
-        String path = generateCaptcha();
+        List<String> captchaInfo = CaptchaUtil.generateCaptcha();
+        captchaCode = captchaInfo.get(0);
+        String path = captchaInfo.get(1);
         model.addAttribute("path", path);
         return SIGNON_FORM;
     }
@@ -82,7 +84,10 @@ public class AccountController {
 
     @GetMapping("/registerForm")
     public String viewRegisterForm(Model model) {
-        model.addAttribute("path", generateCaptcha());
+        List<String> captchaInfo = CaptchaUtil.generateCaptcha();
+        captchaCode = captchaInfo.get(0);
+        String path = captchaInfo.get(1);
+        model.addAttribute("path", path);
         model.addAttribute("account", account);
         return REGISTER_FORM;
     }
@@ -125,7 +130,7 @@ public class AccountController {
     }
 
     @PostMapping("/editAccount")
-    public String editAccount(Account account, Model model, String listOption, String bannerOption, String form) {
+    public String editAccount(Account account, Model model, String listOption, String bannerOption) {
         account.setListOption(listOption != null);
         account.setBannerOption(bannerOption != null);
         accountService.updateAccount(account);
@@ -134,11 +139,7 @@ public class AccountController {
         model.addAttribute("account", account);
         model.addAttribute("myList", myList);
         model.addAttribute("isAuthenticated", isAuthenticated);
-        if (form == null) {
-            return EDIT_ACCOUNT_FORM;
-        } else {
-            return getAllAccount(model);
-        }
+        return EDIT_ACCOUNT_FORM;
     }
 
     public void clear() {
@@ -147,55 +148,12 @@ public class AccountController {
         myList = null;
     }
 
-    @GetMapping("/getAllAccount")
-    public String getAllAccount(Model model) {
-        List<Account> accountList = accountService.getAllAccount();
-        model.addAttribute("accountList", accountList);
-        return "management/account/account";
-    }
 
-    @GetMapping("/searchAccount")
-    public String searchAccount(String keyword, Model model) {
-        List<Account> accountList = accountService.searchAccount(keyword);
-        model.addAttribute("accountList", accountList);
-        return "management/account/account";
-    }
-
-    @GetMapping("/editAccount/{username}")
-    public String editAccount(@PathVariable("username") String username, Model model) {
-        Account account = accountService.getAccount(username);
-        model.addAttribute("account", account);
-        return "management/account/editAccount";
-    }
-
-    @GetMapping("/adminLogin")
-    public String adminLogin() {
-        return "management/account/main";
-    }
 
     /**
      *
      * @return the path of captcha image
      */
-    private String generateCaptcha() {
-        CaptchaUtil captchaUtil = CaptchaUtil.Instance();
-        captchaCode = captchaUtil.getString();
-        String staticPath = Objects.requireNonNull(Objects.requireNonNull(ClassUtils.getDefaultClassLoader())
-                .getResource("static")).getPath();
-        String captchaPath = staticPath + File.separator + "captcha" + File.separator + captchaCode + ".jpg";
-        String visitPath = ".." + File.separator + "captcha"+ File.separator + captchaCode + ".jpg";
-        File file = new File(captchaPath);
-        if (!file.exists()) {
-            file.mkdirs();
-        }
-        try {
-            BufferedImage bufferedImage = captchaUtil.getImage();
-            ImageIO.write(bufferedImage, "jpg", file);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return visitPath;
-    }
 
     @GetMapping("/usernameExist")
     @ResponseBody

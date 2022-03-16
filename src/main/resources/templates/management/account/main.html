@@ -65,7 +65,6 @@
                         <dd><a id="itemButton">Item</a></dd>
                     </dl>
                 </li>
-                <li class="layui-nav-item"><a href="">the links</a></li>
             </ul>
         </div>
     </div>
@@ -108,7 +107,7 @@
         let iframe = $('iframe');
         $("#accountButton").click(
             function () {
-                iframe.attr('src', '/account/getAllAccount');
+                iframe.attr('src', '/manager/account/getAllAccount');
             });
         $("#orderButton").click(
             function () {

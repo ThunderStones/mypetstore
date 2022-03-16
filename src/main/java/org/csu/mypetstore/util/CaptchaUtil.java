@@ -1,5 +1,7 @@
 package org.csu.mypetstore.util;
 
+import org.springframework.util.ClassUtils;
+
 import javax.imageio.ImageIO;
 import java.awt.Color;
 import java.awt.Font;
@@ -7,6 +9,9 @@ import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class CaptchaUtil {
@@ -98,17 +103,39 @@ public class CaptchaUtil {
      */
     private Color getRandColor(int fc, int bc) {
         Random random = new Random();
-        if (fc > 255)
+        if (fc > 255) {
             fc = 255;
-        if (bc > 255)
+        }
+        if (bc > 255) {
             bc = 255;
+        }
         int r = fc + random.nextInt(bc - fc);
         int g = fc + random.nextInt(bc - fc);
         int b = fc + random.nextInt(bc - fc);
         return new Color(r, g, b);
     }
 
-    public static void main(String[] args) {
-//        System.out.println(Instance().saveImage());
+    public static List<String> generateCaptcha() {
+        List<String> codeInfo = new ArrayList<>(2);
+        CaptchaUtil captchaUtil = CaptchaUtil.Instance();
+        String captchaCode = captchaUtil.getString();
+        codeInfo.add(captchaCode);
+        String staticPath = Objects.requireNonNull(Objects.requireNonNull(ClassUtils.getDefaultClassLoader())
+                .getResource("static")).getPath();
+        String captchaPath = staticPath + File.separator + "captcha" + File.separator + captchaCode + ".jpg";
+        String visitPath = ".." + File.separator + "captcha"+ File.separator + captchaCode + ".jpg";
+        codeInfo.add(visitPath);
+        File file = new File(captchaPath);
+        if (!file.exists()) {
+            file.mkdirs();
+        }
+        try {
+            BufferedImage bufferedImage = captchaUtil.getImage();
+            ImageIO.write(bufferedImage, "jpg", file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return codeInfo;
     }
+
 }
