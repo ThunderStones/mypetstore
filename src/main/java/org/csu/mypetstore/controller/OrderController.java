@@ -109,30 +109,4 @@ public class OrderController {
             return "common/error";
         }
     }
-
-    @GetMapping("/orderMain")
-    public String viewOrderMain(Model model) {
-        List<Order> orderList = orderService.getAllOrder();
-        model.addAttribute("orderList", orderList);
-        return "management/order/order";
-    }
-
-    @GetMapping("/orderDetail/{orderId}")
-    public String viewOrderDetail(@PathVariable("orderId") int orderId, Model model) {
-        Order order = orderService.getOrder(orderId);
-        model.addAttribute("order", order);
-        return "management/order/orderDetail";
-    }
-
-    @PostMapping("/edit")
-    public String editOrder(Order order, Model model) {
-        orderService.updateOrder(order);
-        return "management/order/orderDetail";
-    }
-
-    @GetMapping("/delete/{orderId}")
-    public String deleteOrder(@PathVariable("orderId") int orderId, Model model) {
-        orderService.deleteOrder(orderId);
-        return viewOrderMain(model);
-    }
 }

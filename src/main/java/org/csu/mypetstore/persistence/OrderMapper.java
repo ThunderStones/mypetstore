@@ -24,4 +24,6 @@ public interface OrderMapper {
     void deleteOrder(int orderId);
 
     void deleteOrderStatus(int orderId);
+
+    void shipOrder(int orderId);
 }

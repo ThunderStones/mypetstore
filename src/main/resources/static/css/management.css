@@ -51,3 +51,7 @@ span.errorMsg {
     font-size: 24px;
     font-weight: bold;
 }
+
+.delete_btn {
+    text-align: center;
+}

@@ -152,4 +152,9 @@
         DELETE FROM ORDERSTATUS
         WHERE ORDERID = #{orderId}
     </delete>
+    <update id="shipOrder" parameterType="int">
+        UPDATE ORDERSTATUS
+        SET STATUS = "SHIPPING"
+        WHERE ORDERID = #{orderId}
+    </update>
 </mapper>

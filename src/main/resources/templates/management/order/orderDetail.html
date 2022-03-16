@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="layui-container">
-    <form action="/order/edit" class="layui-form" method="post">
+    <form action="/manager/order/edit" class="layui-form" method="post">
         <div class="layui-form-item">
             <label class="layui-form-label">OrderId</label>
             <label th:text="${order.orderId}" class="layui-form-label"></label>
@@ -199,7 +199,7 @@
             <div class="layui-input-block" id="button">
                 <button class="layui-btn">Submit</button>
                 <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
-                <a href="/order/orderMain" class="layui-btn layui-btn-primary">Back</a>
+                <a href="/manager/order/orderMain" class="layui-btn layui-btn-primary">Back</a>
             </div>
         </div>
     </form>

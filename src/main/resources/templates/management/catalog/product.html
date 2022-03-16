@@ -25,36 +25,39 @@
         <span class="errorMsg" th:text="${errorMsg}"></span>
     </div>
     <hr class="layui-bg-green">
+    <div class="layui-row">
 
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <td></td>
-            <td>Product ID</td>
-            <td>Category</td>
-            <td>Name</td>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="product : ${productList}">
+        <table class="layui-table">
+            <thead>
+            <tr>
+                <td></td>
+                <td>Product ID</td>
+                <td>Category</td>
+                <td>Name</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="product : ${productList}">
 
 
-            <td th:utext="${product.description}"></td>
-            <td>
-                <a th:href="@{/catalog/viewItemList/{productId}(productId=${product.productId})}"
-                   th:text="${product.productId}">
-                    ${product.productId}
-                </a>
-            </td>
-            <td th:text="${product.categoryId}"></td>
-            <td th:text="${product.name}"></td>
-            <td>
-                <a th:href="@{/catalog/delete/product/{productId}(productId=${product.productId})}" class="layui-btn layui-btn-primary">Delete</a>
-            </td>
+                <td th:utext="${product.description}"></td>
+                <td>
+                    <a th:href="@{/catalog/viewItemList/{productId}(productId=${product.productId})}"
+                       th:text="${product.productId}">
+                        ${product.productId}
+                    </a>
+                </td>
+                <td th:text="${product.categoryId}"></td>
+                <td th:text="${product.name}"></td>
+                <td class="delete_btn">
+                    <a th:href="@{/catalog/delete/product/{productId}(productId=${product.productId})}"
+                       class="layui-btn-sm layui-btn layui-btn-danger">Delete</a>
+                </td>
 
-        </tr>
-        </tbody>
-    </table>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script src="/layui/layui.js"></script>
 </body>

@@ -33,9 +33,9 @@
                         <span th:text="${category.name}+ '(' + ${category.categoryId} + ')'"></span>
                     </a>
                 </td>
-                <td>
+                <td class="delete_btn">
                     <a th:href="@{/catalog/delete/category/{categoryId}(categoryId=${category.categoryId})}"
-                       class="layui-btn layui-btn-primary">Delete</a>
+                       class="layui-btn-sm layui-btn-danger layui-btn">Delete</a>
                 </td>
             </tr>
 

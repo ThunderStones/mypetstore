@@ -31,10 +31,12 @@
             <td th:text="${#dates.format(order.orderDate)}"></td>
             <td th:text="${order.status}"></td>
             <td>
-                <a th:href="@{/order/orderDetail/{orderId}(orderId=${order.orderId})}"
+                <a th:href="@{/manager/order/orderDetail/{orderId}(orderId=${order.orderId})}"
                    class="layui-btn layui-btn-xs">More
                     Information</a>
-                <a th:href="@{/order/delete/{orderId}(orderId=${order.orderId})}"
+                <a th:href="@{/manager/order/ship/{orderId}(orderId=${order.orderId})}"
+                   class="layui-btn layui-btn-warm layui-btn-xs">Ship</a>
+                <a th:href="@{/manager/order/delete/{orderId}(orderId=${order.orderId})}"
                    class="layui-btn layui-btn-danger layui-btn-xs">Delete</a>
             </td>
         </tr>

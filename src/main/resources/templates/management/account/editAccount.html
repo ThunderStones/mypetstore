@@ -10,13 +10,14 @@
 </head>
 <body>
 <div class="layui-container">
-    <form action="/account/editAccount" method="post" class="layui-form">
+    <form action="/manager/account/editAccount" method="post" class="layui-form">
 
         <div class="layui-form-item"><h3 class="layui-">User Information</h3></div>
         <div class="layui-form-item">
             <label class="layui-form-label">Username</label>
             <label th:text="${account.username}" class="layui-form-label"
                    id="username">${sessionScope.account.username}</label>
+            <input type="hidden" name="username" th:value="${account.username}">
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">Password</label>
@@ -125,7 +126,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">Favourite Category</label>
             <div class="layui-input-block">
-                <select name="favouriteCategory">
+                <select name="favouriteCategoryId">
                     <option th:each="category:${application.categoryList}" th:value="${category}" th:text="${category}"
                             th:selected="${category} == ${account.favouriteCategoryId}">
                         category
@@ -154,7 +155,7 @@
             <div class="layui-input-block">
                 <button class="layui-btn">Submit</button>
                 <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
-                <a href="/account/getAllAccount" class="layui-btn layui-btn-primary">Back</a>
+                <a href="/manager/account/getAllAccount" class="layui-btn layui-btn-primary">Back</a>
             </div>
         </div>
         <input type="hidden" name="form" value="management">

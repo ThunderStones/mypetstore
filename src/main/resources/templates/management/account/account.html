@@ -50,7 +50,7 @@
             <td th:text="${account.phone}">${account.phone}</td>
             <td th:text="${account.country}">${account.country}</td>
             <td>
-                <a th:href="@{/account/editAccount/{username}(username=${account.username})}" class="layui-btn layui-btn-xs">Edit</a>
+                <a th:href="@{/manager/account/editAccount/{username}(username=${account.username})}" class="layui-btn layui-btn-xs">Edit</a>
 <!--                <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs">Delete</a>-->
             </td>
         </tr>

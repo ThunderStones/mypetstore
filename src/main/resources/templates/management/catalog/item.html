@@ -49,8 +49,8 @@
             <td th:text="${item.status}"></td>
             <td th:text="${item.attribute1}"></td>
             <td th:text="${item.product.name}"></td>
-            <td>
-                <a th:href="@{/catalog/delete/item/{itemId}(itemId=${item.itemId})}" class="layui-btn layui-btn-primary layui-btn-sm">Delete</a>
+            <td class="delete_btn">
+                <a th:href="@{/catalog/delete/item/{itemId}(itemId=${item.itemId})}" class="layui-btn layui-btn-sm layui-btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>

@@ -7,6 +7,7 @@ import org.csu.mypetstore.util.CaptchaUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,9 +56,9 @@ public class BackAccountController {
         return "management/login";
     }
 
-    @PostMapping("/login")
+    @RequestMapping("/login")
     public String login(String username, String password, String captcha, Model model) {
-        if (!captchaCode.equals(captcha)) {
+        if (!captchaCode.equalsIgnoreCase(captcha)) {
             model.addAttribute("msg", "Error : Incorrect CaptchaCode.");
             return "forward:/manager/account/loginForm";
         }
@@ -73,6 +74,9 @@ public class BackAccountController {
     public String editAccount(Account account, Model model, String listOption, String bannerOption) {
         account.setListOption(listOption != null);
         account.setBannerOption(bannerOption != null);
+        if (!account.getPassword().isEmpty()) {
+            account.setPassword(DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
+        }
         accountService.updateAccount(account);
         model.addAttribute("account", account);
         return getAllAccount(model);
