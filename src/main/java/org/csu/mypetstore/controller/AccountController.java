@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -61,14 +62,14 @@ public class AccountController {
             model.addAttribute("msg", "Error: Captcha Code is not correct!");
             return viewSignonForm(model);
         }
-        account = accountService.getAccount(account.getUsername(), account.getPassword());
+        account = accountService.getAccount(account.getUsername(), DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
         if (account == null) {
             model.addAttribute("msg", "Invalid username or password.  Signon failed.");
             clear();
             model.addAttribute("account", null);
             model.addAttribute("myList", null);
             model.addAttribute("isAuthenticated", false);
-            return SIGNON_FORM;
+            return "redirect:/account/signonForm";
         } else {
             account.setPassword(null);
             myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
@@ -103,6 +104,7 @@ public class AccountController {
             model.addAttribute("msg", "Error: Password and  repeat password are not same!");
             return viewRegisterForm(model);
         }
+        account.setPassword(DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
         accountService.insertAccount(account);
         cartService.initCart(account.getUsername());
         cartService.updateCart(account.getUsername(), new Cart());
@@ -133,6 +135,9 @@ public class AccountController {
     public String editAccount(Account account, Model model, String listOption, String bannerOption) {
         account.setListOption(listOption != null);
         account.setBannerOption(bannerOption != null);
+        if (!account.getPassword().isEmpty()) {
+            account.setPassword(DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
+        }
         accountService.updateAccount(account);
         account = accountService.getAccount(account.getUsername());
         myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
