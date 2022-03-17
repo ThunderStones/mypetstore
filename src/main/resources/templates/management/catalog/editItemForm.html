@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+</head>
+<body>
+
+
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-md4">
+            <span class="pageTitle">Edit Item</span>
+        </div>
+    </div>
+    <form action="/manager/catalog/edit/item" class="layui-form" method="get">
+        <div class="layui-form-item">
+            <label class="layui-form-label">Item Id</label>
+            <label class="layui-form-label" th:text="${item.itemId}"></label>
+            <input type="hidden" name="itemId" th:value="${item.itemId}">>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Product Id</label>
+            <label class="layui-form-label" th:text="${item.product.productId}"></label>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">List Price</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="listPrice" class="layui-input"
+                       th:value="${#objects.nullSafe(item.listPrice, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Unit Price Id</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="unitPrice" class="layui-input"
+                       th:value="${#objects.nullSafe(item.unitCost, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Status</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="status" class="layui-input"
+                       th:value="${#objects.nullSafe(item.status, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Attribute 1</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="attribute1" class="layui-input"
+                       th:value="${#objects.nullSafe(item.attribute1, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Attribute 2</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="attribute2" class="layui-input"
+                       th:value="${#objects.nullSafe(item.attribute2, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Attribute 3</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="attribute3" class="layui-input"
+                       th:value="${#objects.nullSafe(item.attribute3, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Attribute 4</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="attribute4" class="layui-input"
+                       th:value="${#objects.nullSafe(item.attribute4, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">Attribute 5</label>
+            <div class="layui-input-block">
+                <input type="text" size="40" name="attribute5" class="layui-input"
+                       th:value="${#objects.nullSafe(item.attribute5, '')}"/>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn">Submit</button>
+                <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+                <a href="/manager/catalog/viewAllItemList" class="layui-btn layui-btn-primary">Back</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="/layui/layui.js"></script>
+</body>
+</html>

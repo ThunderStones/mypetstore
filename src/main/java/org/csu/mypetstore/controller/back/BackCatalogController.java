@@ -156,14 +156,16 @@ public class BackCatalogController {
         return viewItemList(null, model);
     }
 
-    @GetMapping("/edit/item/{itemId}")
+    @GetMapping("/edit/itemForm/{itemId}")
     public String editItem(@PathVariable("itemId") String itemId, Model model) {
-
+        model.addAttribute("item", catalogService.getItem(itemId));
+        return "management/catalog/editItemForm";
     }
 
-    @PostMapping("/edit/item")
+    @GetMapping ("/edit/item")
     public String p(Item item) {
         catalogService.updateItem(item);
+        return "redirect:/manager/catalog/viewAllItemList";
     }
 
 }
