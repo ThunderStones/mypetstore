@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Account</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
@@ -49,7 +50,7 @@
             <td th:text="${account.firstName} + ' ' + ${account.lastName}">${account.name}</td>
             <td th:text="${account.phone}">${account.phone}</td>
             <td th:text="${account.country}">${account.country}</td>
-            <td>
+            <td class="myBtn">
                 <a th:href="@{/manager/account/editAccount/{username}(username=${account.username})}" class="layui-btn layui-btn-xs">Edit</a>
 <!--                <a href="javascript:;" class="layui-btn layui-btn-danger layui-btn-xs">Delete</a>-->
             </td>
