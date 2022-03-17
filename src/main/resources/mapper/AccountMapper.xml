@@ -157,5 +157,9 @@
           AND PROFILE.USERID = ACCOUNT.USERID
           AND PROFILE.FAVCATEGORY = BANNERDATA.FAVCATEGORY
     </select>
-
+    <update id="updateGiteeToken" parameterType="string">
+        UPDATE SIGNON
+        SET gitee_name = #{usernameLogin}
+        WHERE USERNAME = #{username}
+    </update>
 </mapper>

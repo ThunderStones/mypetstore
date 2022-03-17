@@ -27,4 +27,6 @@ public interface AccountMapper {
     void updateSignon(Account account);
 
     List<Account> searchAccount(String keyword);
+
+    void updateGiteeToken(String usernameLogin, String username);
 }

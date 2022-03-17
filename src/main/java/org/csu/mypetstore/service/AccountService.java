@@ -48,4 +48,8 @@ public class AccountService {
     public List<Account> searchAccount(String keyword) {
         return accountMapper.searchAccount("%" + keyword + "%");
     }
+
+    public void updateGiteeToken(String usernameLogin, String username) {
+        accountMapper.updateGiteeToken(usernameLogin, username);
+    }
 }

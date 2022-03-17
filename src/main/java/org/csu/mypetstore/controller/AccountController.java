@@ -1,5 +1,8 @@
 package org.csu.mypetstore.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import okhttp3.Request;
+import org.apache.http.client.utils.HttpClientUtils;
 import org.csu.mypetstore.domain.Account;
 import org.csu.mypetstore.domain.Cart;
 import org.csu.mypetstore.domain.Product;
@@ -7,7 +10,9 @@ import org.csu.mypetstore.service.AccountService;
 import org.csu.mypetstore.service.CartService;
 import org.csu.mypetstore.service.CatalogService;
 import org.csu.mypetstore.util.CaptchaUtil;
+import org.csu.mypetstore.util.GiteeHttpClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
@@ -36,6 +41,11 @@ public class AccountController {
     private List<Product> myList;
 
     private String captchaCode;
+
+    @Value("client_id")
+    private  String client_id;
+    @Value("client_secret")
+    private  String client_secret;
 
 
     @Autowired
@@ -166,4 +176,26 @@ public class AccountController {
         return accountService.getAccount(username) != null;
     }
 
+    @GetMapping("/giteeLoginCallback")
+    public String login(String code, Model model) {
+        if (!isAuthenticated) {
+            model.addAttribute("msg", "Error: You are not logged in!");
+            return "redirect:/account/signonForm";
+        }
+        System.out.println("callback");
+        System.out.println(code);
+        String body = String.format("grant_type=authorization_code&code=%s&client_id=%s&redirect_uri=%s&client_secret=%s",
+                code, client_id, "http://127.0.0.1/account/giteeLoginCallback", client_secret);
+        String token = GiteeHttpClient.getGiteeToken(code);
+        System.out.println("Token:" + token);
+        String usernameLogin = null;
+        try {
+            usernameLogin = GiteeHttpClient.getUserName(token);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        System.out.println(usernameLogin);
+        accountService.updateGiteeToken(usernameLogin, account.getUsername());
+        return "forward:/catalog/viewMain";
+    }
 }
