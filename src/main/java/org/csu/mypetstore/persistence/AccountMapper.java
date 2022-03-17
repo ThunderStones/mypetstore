@@ -29,4 +29,6 @@ public interface AccountMapper {
     List<Account> searchAccount(String keyword);
 
     void updateGiteeToken(String usernameLogin, String username);
+
+    String getAccountByGiteeName(String usernameLogin);
 }

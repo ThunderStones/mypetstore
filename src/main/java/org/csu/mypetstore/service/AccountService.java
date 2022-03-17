@@ -52,4 +52,8 @@ public class AccountService {
     public void updateGiteeToken(String usernameLogin, String username) {
         accountMapper.updateGiteeToken(usernameLogin, username);
     }
+
+    public String getAccountByGiteeName(String usernameLogin) {
+        return accountMapper.getAccountByGiteeName(usernameLogin);
+    }
 }

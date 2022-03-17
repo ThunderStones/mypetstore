@@ -162,4 +162,9 @@
         SET gitee_name = #{usernameLogin}
         WHERE USERNAME = #{username}
     </update>
+    <select id="getAccountByGiteeName" parameterType="string" resultType="string">
+        SELECT USERNAME
+        FROM SIGNON
+        WHERE gitee_name = #{usernameLogin}
+    </select>
 </mapper>

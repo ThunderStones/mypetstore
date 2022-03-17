@@ -43,9 +43,9 @@ public class AccountController {
     private String captchaCode;
 
     @Value("client_id")
-    private  String client_id;
+    private String client_id;
     @Value("client_secret")
-    private  String client_secret;
+    private String client_secret;
 
 
     @Autowired
@@ -164,9 +164,7 @@ public class AccountController {
     }
 
 
-
     /**
-     *
      * @return the path of captcha image
      */
 
@@ -178,10 +176,6 @@ public class AccountController {
 
     @GetMapping("/giteeLoginCallback")
     public String login(String code, Model model) {
-        if (!isAuthenticated) {
-            model.addAttribute("msg", "Error: You are not logged in!");
-            return "redirect:/account/signonForm";
-        }
         System.out.println("callback");
         System.out.println(code);
         String body = String.format("grant_type=authorization_code&code=%s&client_id=%s&redirect_uri=%s&client_secret=%s",
@@ -195,7 +189,20 @@ public class AccountController {
             e.printStackTrace();
         }
         System.out.println(usernameLogin);
-        accountService.updateGiteeToken(usernameLogin, account.getUsername());
+        if (!isAuthenticated) {
+            String username = accountService.getAccountByGiteeName(usernameLogin);
+            if (username != null) {
+                account = accountService.getAccount(username);
+                myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
+                isAuthenticated = true;
+                model.addAttribute("account", account);
+                model.addAttribute("myList", myList);
+                model.addAttribute("isAuthenticated", isAuthenticated);
+                return MAIN;
+            }
+        } else {
+            accountService.updateGiteeToken(usernameLogin, account.getUsername());
+        }
         return "forward:/catalog/viewMain";
     }
 }
