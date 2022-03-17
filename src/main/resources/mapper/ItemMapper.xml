@@ -74,5 +74,13 @@
         FROM INVENTORY
         WHERE ITEMID = #{value}
     </delete>
-
+    <update id="editItem">
+        UPDATE ITEM
+        SET LISTPRICE = #{listprice}
+            UNITCOST = #{unitcost}
+            SUPPLIER = #{supplierId}
+            ATTRIBUTE = #{attribute}
+            NAME = #{name}
+        WHERE ITEMID = #{itemId}
+    </update>
 </mapper>

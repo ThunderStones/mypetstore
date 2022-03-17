@@ -84,4 +84,12 @@ public class CatalogService {
         itemMapper.deleteItem(itemId);
         itemMapper.deleteItemInventory(itemId);
     }
+
+    public void updateCategory(String categoryId, String newCategoryId) {
+        categoryMapper.updateCategoryName(categoryId, newCategoryId);
+    }
+
+    public void updateItem(Item item) {
+        itemMapper.editItem(item);
+    }
 }

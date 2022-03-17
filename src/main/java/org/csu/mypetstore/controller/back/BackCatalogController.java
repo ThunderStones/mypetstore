@@ -156,33 +156,14 @@ public class BackCatalogController {
         return viewItemList(null, model);
     }
 
-    @GetMapping("/edit/category/{categoryId}")
-    public String editCategory(@PathVariable("categoryId") String categoryId, Model model) {
-        if (!categoryId.isEmpty() && catalogService.getProductListByCategory(categoryId).size() == 0) {
-            catalogService.deleteCategory(categoryId);
-        } else {
-            model.addAttribute("errorMsg", "Can not delete " + categoryId + ". Some products are in this category");
-        }
-        return viewCategoryList(model);
-    }
-
-    @GetMapping("/edit/product/{productId}")
-    public String editProduct(@PathVariable("productId") String productId, Model model) {
-        if (!productId.isEmpty() && catalogService.getItemListByProduct(productId).size() == 0) {
-            catalogService.deleteProduct(productId);
-        } else {
-            model.addAttribute("errorMsg", "Can not delete " + productId + ". Some items are in this product");
-        }
-        return viewProductList(null, model);
-    }
-
     @GetMapping("/edit/item/{itemId}")
     public String editItem(@PathVariable("itemId") String itemId, Model model) {
-        if (!itemId.isEmpty()) {
-            catalogService.deleteItem(itemId);
-        } else {
-            model.addAttribute("errorMsg", "Can not delete " + itemId);
-        }
-        return viewItemList(null, model);
+
     }
+
+    @PostMapping("/edit/item")
+    public String p(Item item) {
+        catalogService.updateItem(item);
+    }
+
 }

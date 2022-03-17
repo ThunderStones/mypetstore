@@ -15,4 +15,6 @@ public interface CategoryMapper {
     void insertCategory(Category category);
 
     void deleteCategory(String categoryId);
+
+    void updateCategoryName(String categoryId, String newCategoryId);
 }

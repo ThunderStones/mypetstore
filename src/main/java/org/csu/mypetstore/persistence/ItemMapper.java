@@ -23,4 +23,6 @@ public interface ItemMapper {
     void insertItemInventory(Item item);
 
     void deleteItemInventory(String itemId);
+
+    void editItem(Item item);
 }

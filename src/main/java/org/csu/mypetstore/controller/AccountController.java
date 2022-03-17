@@ -73,6 +73,7 @@ public class AccountController {
             return viewSignonForm(model);
         }
         account = accountService.getAccount(account.getUsername(), DigestUtils.md5DigestAsHex(account.getPassword().getBytes()));
+        this.account = account;
         if (account == null) {
             model.addAttribute("msg", "Invalid username or password.  Signon failed.");
             clear();
