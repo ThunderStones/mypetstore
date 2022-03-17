@@ -50,8 +50,6 @@
                 <td th:text="${product.categoryId}"></td>
                 <td th:text="${product.name}"></td>
                 <td class="myBtn">
-                    <a th:href="@{/manager/catalog/edit/product/{productId}(productId=${product.productId})}"
-                       class="layui-btn-sm layui-btn">Edit</a>
                     <a th:href="@{/manager/catalog/delete/product/{productId}(productId=${product.productId})}"
                        class="layui-btn-sm layui-btn layui-btn-danger">Delete</a>
                 </td>
