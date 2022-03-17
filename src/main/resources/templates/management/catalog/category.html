@@ -16,7 +16,7 @@
         </div>
         <div class="layui-col-md1 layui-col-md-offset7">
             <div class="layui-btn-group">
-                <a href="/catalog/viewAddPage" class="layui-btn layui-btn-primary">Add</a>
+                <a href="/manager/catalog/viewAddPage" class="layui-btn layui-btn-primary">Add</a>
             </div>
         </div>
     </div>
@@ -29,12 +29,14 @@
         <table class="layui-table">
             <tr th:each="category: ${categoryList}">
                 <td>
-                    <a th:href="@{/catalog/viewProductList/{categoryId}(categoryId=${category.categoryId})}">
+                    <a th:href="@{/manager/catalog/viewProductList/{categoryId}(categoryId=${category.categoryId})}">
                         <span th:text="${category.name}+ '(' + ${category.categoryId} + ')'"></span>
                     </a>
                 </td>
-                <td class="delete_btn">
-                    <a th:href="@{/catalog/delete/category/{categoryId}(categoryId=${category.categoryId})}"
+                <td class="myBtn">
+                    <a th:href="@{/manager/catalog/edit/category/{categoryId}(categoryId=${category.categoryId})}"
+                       class="layui-btn layui-btn-sm">Edit</a>
+                    <a th:href="@{/manager/catalog/delete/category/{categoryId}(categoryId=${category.categoryId})}"
                        class="layui-btn-sm layui-btn-danger layui-btn">Delete</a>
                 </td>
             </tr>

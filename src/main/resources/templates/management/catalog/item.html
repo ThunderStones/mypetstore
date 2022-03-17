@@ -16,7 +16,7 @@
         </div>
         <div class="layui-col-md1 layui-col-md-offset7">
             <div class="layui-btn-group">
-                <a href="/catalog/viewAddPage" class="layui-btn layui-btn-primary">Add</a>
+                <a href="/manager/catalog/viewAddPage" class="layui-btn layui-btn-primary">Add</a>
             </div>
 
         </div>
@@ -49,8 +49,11 @@
             <td th:text="${item.status}"></td>
             <td th:text="${item.attribute1}"></td>
             <td th:text="${item.product.name}"></td>
-            <td class="delete_btn">
-                <a th:href="@{/catalog/delete/item/{itemId}(itemId=${item.itemId})}" class="layui-btn layui-btn-sm layui-btn-danger">Delete</a>
+            <td class="myBtn">
+                <a th:href="@{/manager/catalog/edit/item/{itemId}(itemId=${item.itemId})}"
+                   class="layui-btn layui-btn-sm">Edit</a>
+                <a th:href="@{/manager/catalog/delete/item/{itemId}(itemId=${item.itemId})}"
+                   class="layui-btn layui-btn-sm layui-btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>

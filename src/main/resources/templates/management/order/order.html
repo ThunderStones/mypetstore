@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Order</title>
     <link rel="stylesheet" href="/layui/css/layui.css">
+    <link rel="stylesheet" href="/css/management.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
@@ -30,7 +31,7 @@
             <td th:text="${order.username}"></td>
             <td th:text="${#dates.format(order.orderDate)}"></td>
             <td th:text="${order.status}"></td>
-            <td>
+            <td class="myBtn">
                 <a th:href="@{/manager/order/orderDetail/{orderId}(orderId=${order.orderId})}"
                    class="layui-btn layui-btn-xs">More
                     Information</a>
