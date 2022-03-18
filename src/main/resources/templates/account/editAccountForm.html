@@ -39,6 +39,23 @@
         <a href="/order/list">My Orders</a>
     </div>
 </div>
+<div id="dialog" style="display: none">
+    <p th:text="${msg}"></p>
+</div>
+<script>
+    if ($('#dialog p').html() !== '') {
+        $('#dialog').dialog({
+            autoOpen: false,
+            modal: true,
+            buttons: {
+                Ok: function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+        $('#dialog').dialog('open');
+    }
+</script>
 <div th:replace="common/bottom"></div>
 </body>
 </html>

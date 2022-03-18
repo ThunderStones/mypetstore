@@ -200,10 +200,15 @@ public class AccountController {
                 model.addAttribute("myList", myList);
                 model.addAttribute("isAuthenticated", isAuthenticated);
                 return MAIN;
+            } else {
+                model.addAttribute("msg", "This gitee account is not bind to any account!");
+                return "forward:/account/signonForm";
             }
         } else {
             accountService.updateGiteeToken(usernameLogin, account.getUsername());
+            model.addAttribute("msg", "Bind gitee account successfully!");
+            return "forward:/account/editAccountForm";
         }
-        return "forward:/catalog/viewMain";
+//        return "forward:/catalog/viewMain";
     }
 }
